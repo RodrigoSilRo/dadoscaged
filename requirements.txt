@@ -1,0 +1,4 @@
+# A aquisição e a validação usam apenas a biblioteca padrão do Python (>= 3.9).
+# As dependências abaixo servem apenas ao passo opcional de exportação .xlsx.
+pandas==2.3.1
+openpyxl==3.1.5

@@ -1,0 +1,11 @@
+{
+ "coletado_em_utc": "2026-08-28T17:21:29+00:00",
+ "painel_url": "https://app.powerbi.com/view?r=eyJrIjoiNWI5NWI0ODEtYmZiYy00Mjg3LTkzNWUtY2UyYjIwMDE1YWI2IiwidCI6IjNlYzkyOTY5LTVhNTEtNGYxOC04YWM5LWVmOThmYmFmYTk3OCJ9",
+ "cluster": "https://wabi-brazil-south-d-primary-api.analysis.windows.net",
+ "model_id": 528307,
+ "dataset_id": "4859b5fd-e3ad-4a7c-95fe-aa62fc046d96",
+ "report_id": "534733",
+ "pacote_nome": "Painel Novo CAGED.pbix",
+ "pacote_versao": "ID-19810754",
+ "ultimo_refresh_do_painel": "2026-07-29T18:16:56.83"
+}

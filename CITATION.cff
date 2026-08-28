@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "dadoscaged: aquisição documentada de dados do Painel do Novo CAGED"
+message: >-
+  Ao usar estes dados em publicação, cite o Ministério do Trabalho e Emprego
+  como fonte primária dos dados. Cite este repositório apenas como instrumento
+  de coleta, quando for relevante descrever o procedimento de aquisição.
+type: software
+authors:
+  - family-names: "Silveira da Rosa"
+    given-names: "Rodrigo"
+repository-code: "https://github.com/RodrigoSilRo/dadoscaged"
+license: MIT
+version: "1.0.0"
+date-released: "2026-08-28"
+
+references:
+  - type: database
+    title: "Painel de Informações do Novo CAGED"
+    authors:
+      - name: "Ministério do Trabalho e Emprego (Brasil), Secretaria de Trabalho"
+    url: "http://pdet.mte.gov.br/o-que-e-novo-caged"
+    notes: >-
+      Fonte primária dos dados. Coleta realizada em 2026-08-28, sobre a versão
+      do painel com último refresh em 2026-07-29 (pacote "Painel Novo CAGED.pbix",
+      versão ID-19810754), cobrindo as competências de 2020-01 a 2026-06.
+      A série é revisada a cada divulgação: a data da coleta é parte da
+      identidade do dado.

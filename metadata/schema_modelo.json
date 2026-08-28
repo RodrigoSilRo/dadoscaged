@@ -1,0 +1,1684 @@
+{
+ "schemas": [
+  {
+   "modelId": 528307,
+   "schema": {
+    "Entities": [
+     {
+      "Name": "Dados - Movimentações",
+      "EdmName": "Sandbox.Dados___Movimentações",
+      "Properties": [
+       {
+        "Name": "competência",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "5a4e855a-4bd3-4271-95fd-db8fa2684afa"
+       },
+       {
+        "Name": "município",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "4040aac8-27b4-436a-8893-f89dd3a5aef6"
+       },
+       {
+        "Name": "Admitidos",
+        "DataType": 4,
+        "FormatString": "#,0",
+        "Column": {
+         "DefaultAggregate": 2
+        },
+        "StableName": "6bd40dc6-be8d-46f9-8c9d-094e4b46b74a"
+       },
+       {
+        "Name": "Desligados",
+        "DataType": 4,
+        "FormatString": "#,0",
+        "Column": {
+         "DefaultAggregate": 2
+        },
+        "StableName": "7af27748-9895-4225-94e9-b0aca64e4349"
+       },
+       {
+        "Name": "Saldo",
+        "DataType": 4,
+        "FormatString": "#,0",
+        "Column": {
+         "DefaultAggregate": 2
+        },
+        "StableName": "701af3a3-2e1d-4fc5-91cd-b6b915af44b3"
+       },
+       {
+        "Name": "subclasse",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "f212adc2-6cc1-48cd-a871-70359d0df2d9"
+       },
+       {
+        "Name": "cbo2002ocupação",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "b7b426e5-26df-43a9-ad1d-fc2ed2b0b33e"
+       },
+       {
+        "Name": "graudeinstrução",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "648b30db-f028-429b-913c-09ec750dc185"
+       },
+       {
+        "Name": "sexo",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "7d8ec617-3fec-4e29-91e3-c35e9d33f83e"
+       },
+       {
+        "Name": "faixaetária",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "5ec61eaf-f27d-4cb5-8e53-7574d45168fd"
+       },
+       {
+        "Name": "indicadoraprendiz",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "09ddc628-3e2d-41c8-9910-1211e7a02422"
+       },
+       {
+        "Name": "indtrabintermitente",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "b0f2e7a0-cbfd-425c-8ea1-c21aad9e0fb1"
+       },
+       {
+        "Name": "indtrabtemp",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "e22812e4-41de-4cbe-8a62-41cfaf9a0676"
+       },
+       {
+        "Name": "indestrangeiro",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "207a5e21-5dbb-474e-9aff-e819884829d4"
+       },
+       {
+        "Name": "nacionalidade",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "583cb963-eb61-4701-8d0d-1d39f79255cb"
+       },
+       {
+        "Name": "tempoemprego",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 2
+        },
+        "StableName": "46f49117-3d95-476c-a60f-1dbe1f556976"
+       }
+      ],
+      "NavigationProperties": [
+       {
+        "Name": "Geográfico_Código Município",
+        "Active": true,
+        "TargetEntity": "Geográfico",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Econômico_Código CNAE 2.0 Subclasse",
+        "Active": true,
+        "TargetEntity": "Econômico",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Ocupacional_cbo2002ocupação",
+        "Active": true,
+        "TargetEntity": "Ocupacional",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Faixa Etária_faixaetária",
+        "Active": true,
+        "TargetEntity": "Faixa Etária",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Grau de Instrução_graudeinstrução",
+        "Active": true,
+        "TargetEntity": "Grau de Instrução",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Sexo_sexo",
+        "Active": true,
+        "TargetEntity": "Sexo",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Aprendizes_indicadoraprendiz",
+        "Active": true,
+        "TargetEntity": "Aprendizes",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Intermitentes_indtrabintermitente",
+        "Active": true,
+        "TargetEntity": "Intermitentes",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Temporários_indtrabtemp",
+        "Active": true,
+        "TargetEntity": "Temporários",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Estrangeiros_indestrangeiro",
+        "Active": true,
+        "TargetEntity": "Estrangeiros",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Nacionalidades_nacionalidade",
+        "Active": true,
+        "TargetEntity": "Nacionalidades",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "TabelaDeDatas_competência",
+        "Active": true,
+        "TargetEntity": "TabelaDeDatas",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "4bd09168-f36d-4b6f-b11a-5dc8fe8e2c5c"
+     },
+     {
+      "Name": "DateTableTemplate_1e5ab562-6cdc-4b39-a96d-ad5c894754c4",
+      "EdmName": "Sandbox.DateTableTemplate_1e5ab562_6cdc_4b39_a96d_ad5c894754c4",
+      "Private": true,
+      "Properties": [
+       {
+        "Name": "Date",
+        "DataType": 7,
+        "DataCategory": "PaddedDateTableDates",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "a0fe0d0d-1b38-442f-abab-235d363980f7"
+       },
+       {
+        "Name": "Ano",
+        "DataType": 4,
+        "DataCategory": "Years",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "05ed2661-ed64-4b30-a6c1-1113cbdc2ca2"
+       },
+       {
+        "Name": "MonthNo",
+        "DataType": 4,
+        "DataCategory": "MonthOfYear",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "6be4ae70-b7a4-408c-a371-f588e38dc334"
+       },
+       {
+        "Name": "Mês",
+        "DataType": 1,
+        "DataCategory": "Months",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "MonthNo"
+         ]
+        },
+        "StableName": "3c461725-4485-4a82-996b-e596c6208a0e"
+       },
+       {
+        "Name": "QuarterNo",
+        "DataType": 4,
+        "DataCategory": "QuarterOfYear",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "5ed07384-8aea-4626-82ef-864c1825a02e"
+       },
+       {
+        "Name": "Trimestre",
+        "DataType": 1,
+        "DataCategory": "Quarters",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "QuarterNo"
+         ]
+        },
+        "StableName": "1b9b50a9-b268-4e4b-8f41-28634006da23"
+       },
+       {
+        "Name": "Dia",
+        "DataType": 4,
+        "DataCategory": "DayOfMonth",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "00505c4e-b801-4ff2-8307-68d44a759047"
+       }
+      ],
+      "Hierarchies": [
+       {
+        "Name": "Hierarquia de datas",
+        "Levels": [
+         {
+          "Name": "Ano",
+          "Column": "Ano",
+          "StableName": "a79dae0b-a1a2-44e0-923c-c34a2d7f8db7"
+         },
+         {
+          "Name": "Trimestre",
+          "Column": "Trimestre",
+          "StableName": "04fed85d-8aa7-4a39-97fc-8ed83a4f585b"
+         },
+         {
+          "Name": "Mês",
+          "Column": "Mês",
+          "StableName": "1c97c295-6768-401a-b154-19d4118f9ba5"
+         },
+         {
+          "Name": "Dia",
+          "Column": "Dia",
+          "StableName": "5aa86ccc-f2b6-4ee0-8e9d-4430860bdb78"
+         }
+        ],
+        "StableName": "e947438f-b051-438e-be6c-5679320a1978"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "25b6a052-1629-40eb-ab39-75de694cd250"
+     },
+     {
+      "Name": "Geográfico",
+      "EdmName": "Sandbox.Geográfico",
+      "Properties": [
+       {
+        "Name": "Município",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "fbcf5824-e39a-4f33-8ad2-1b54f16bced4"
+       },
+       {
+        "Name": "Região",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Código Região"
+         ]
+        },
+        "StableName": "477f4e58-8ec3-4f53-9afd-86255a87fc40"
+       },
+       {
+        "Name": "Código Município",
+        "EdmName": "Código_Município",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 2
+        },
+        "StableName": "b53a76f7-98bd-4f95-83a8-d7cd21af24f0"
+       },
+       {
+        "Name": "Código UF",
+        "EdmName": "Código_UF",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "1430a62a-f9b1-443b-9354-d16b3bbb0d1a"
+       },
+       {
+        "Name": "UF",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Código UF"
+         ]
+        },
+        "StableName": "174a1f3c-c650-4edd-83d6-b12ad840e6d0"
+       },
+       {
+        "Name": "Código Região",
+        "EdmName": "Código_Região",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "3e0aa6e5-1809-4d7d-b37f-e31a50bbcef1"
+       },
+       {
+        "Name": "UF Mapa",
+        "EdmName": "UF_Mapa",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Código UF"
+         ]
+        },
+        "StableName": "ef7d6be8-7a7b-42a7-a934-c9dd896878cc"
+       },
+       {
+        "Name": "Código Estrato",
+        "EdmName": "Código_Estrato",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "0e5016f7-2449-423b-add2-795ad628b5c5"
+       },
+       {
+        "Name": "Estrato",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "b9151aa5-3a3c-4343-b418-7e329f8aaac8"
+       },
+       {
+        "Name": "UF Sigla",
+        "EdmName": "UF_Sigla",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "e423cc5f-cdb5-4084-99e0-9f829f1ea223"
+       },
+       {
+        "Name": "Código RFB",
+        "EdmName": "Código_RFB",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "47da3163-8204-4886-b27e-f5a2f6675763"
+       },
+       {
+        "Name": "Município SIDRA",
+        "EdmName": "Município_SIDRA",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "31c44ccd-b592-405f-8574-77f54645e3ce"
+       }
+      ],
+      "Hierarchies": [
+       {
+        "Name": "Hierarquia Geográfica",
+        "Levels": [
+         {
+          "Name": "Região",
+          "Column": "Região",
+          "StableName": "797f25da-5b06-4b3f-863c-1296c86cfa34"
+         },
+         {
+          "Name": "UF",
+          "Column": "UF",
+          "StableName": "485e6405-4157-4b9f-a019-b240fb8da54d"
+         },
+         {
+          "Name": "Município",
+          "Column": "Município",
+          "StableName": "6b04f786-0f81-4085-b584-60ffdf57b35e"
+         }
+        ],
+        "StableName": "d081540e-829f-410d-8e5e-5d0beb0155e0"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "a79d8c2c-69e0-4499-bcc8-52d9fb19fc49"
+     },
+     {
+      "Name": "Econômico",
+      "EdmName": "Sandbox.Econômico",
+      "Properties": [
+       {
+        "Name": "CNAE 2.0 Seção",
+        "EdmName": "CNAE_2_0_Seção",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "8d420b94-e0ef-40d3-84aa-1bc45bc0a97d"
+       },
+       {
+        "Name": "Grupamento",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "dbe11ab7-7ad7-4900-af81-bf457618ccaa"
+       },
+       {
+        "Name": "Grande Grupamento",
+        "EdmName": "Grande_Grupamento",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Código Grande Grupamento"
+         ]
+        },
+        "StableName": "c2200106-cd08-4632-8bf8-e1cb5ea26144"
+       },
+       {
+        "Name": "Código CNAE 2.0 Seção",
+        "EdmName": "Código_CNAE_2_0_Seção",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "2be250e1-5298-482d-86af-4aba5abf8103"
+       },
+       {
+        "Name": "Código CNAE 2.0 Subclasse",
+        "EdmName": "Código_CNAE_2_0_Subclasse",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 2
+        },
+        "StableName": "dae7899e-0d13-4024-b690-0dfe26ea1e9f"
+       },
+       {
+        "Name": "CNAE 2.0 Subclasse",
+        "EdmName": "CNAE_2_0_Subclasse",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "1b06a642-65ff-4639-9bc9-a9ec35a15336"
+       },
+       {
+        "Name": "Código CNAE 2.0 Classe",
+        "EdmName": "Código_CNAE_2_0_Classe",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "4aabc021-781d-4290-8e65-41935f48a258"
+       },
+       {
+        "Name": "CNAE 2.0 Classe",
+        "EdmName": "CNAE_2_0_Classe",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "10da818f-f3c5-49b1-bc5a-55dcec4c1e50"
+       },
+       {
+        "Name": "Código CNAE 2.0 Grupo",
+        "EdmName": "Código_CNAE_2_0_Grupo",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "4c67c8c5-e9dc-4032-8ad5-e7e0f221aaf8"
+       },
+       {
+        "Name": "CNAE 2.0 Grupo",
+        "EdmName": "CNAE_2_0_Grupo",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "ce36d62f-ae7b-4c69-9e9d-1a0b55bac178"
+       },
+       {
+        "Name": "Código CNAE 2.0 Divisão",
+        "EdmName": "Código_CNAE_2_0_Divisão",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "bb41d770-4415-4d9d-9f69-85607d52f5ce"
+       },
+       {
+        "Name": "CNAE 2.0 Divisão",
+        "EdmName": "CNAE_2_0_Divisão",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "8a75c3a8-5996-4edb-934c-1b05e7547f4d"
+       },
+       {
+        "Name": "Código Grande Grupamento",
+        "EdmName": "Código_Grande_Grupamento",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "dc5eecda-6722-4211-a0da-e7d7169b16ef"
+       }
+      ],
+      "Hierarchies": [
+       {
+        "Name": "Hierarquia de Atividade Econômica",
+        "Levels": [
+         {
+          "Name": "Grande Grupamento",
+          "Column": "Grande Grupamento",
+          "StableName": "0203056a-6375-4ba8-b374-9505285e4707"
+         },
+         {
+          "Name": "Grupamento",
+          "Column": "Grupamento",
+          "StableName": "54015fe2-53f8-4b95-b939-386c86d0d151"
+         },
+         {
+          "Name": "CNAE 2.0 Seção",
+          "Column": "CNAE 2.0 Seção",
+          "StableName": "a15cae41-15bf-4bc8-b696-af0c894801eb"
+         },
+         {
+          "Name": "CNAE 2.0 Divisão",
+          "Column": "CNAE 2.0 Divisão",
+          "StableName": "0b9f4cf7-bc39-43fb-8f11-2e05efc922d6"
+         },
+         {
+          "Name": "CNAE 2.0 Grupo",
+          "Column": "CNAE 2.0 Grupo",
+          "StableName": "83c2f894-2af2-45be-b68a-fba6b5bca806"
+         },
+         {
+          "Name": "CNAE 2.0 Classe",
+          "Column": "CNAE 2.0 Classe",
+          "StableName": "92f67cca-2683-4813-9398-8078e49bcb1e"
+         },
+         {
+          "Name": "CNAE 2.0 Subclasse",
+          "Column": "CNAE 2.0 Subclasse",
+          "StableName": "073ed6ad-2f0d-403a-9cd3-a90de064687c"
+         }
+        ],
+        "StableName": "5dca0660-0b70-4b11-8317-b73b3e5cf057"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "788f95e4-a0b3-4f73-a2fd-2e7783fa790b"
+     },
+     {
+      "Name": "Faixa Etária",
+      "EdmName": "Sandbox.Faixa_Etária",
+      "Properties": [
+       {
+        "Name": "faixaetária",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "8798b526-1ca2-422e-adab-54d4de0c2575"
+       },
+       {
+        "Name": "Faixa Etária",
+        "EdmName": "Faixa_Etária2",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "faixaetária"
+         ]
+        },
+        "StableName": "13282794-ea15-4abe-b534-a88789ad3533"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "25cf1cc6-b9ad-411b-95e8-0987332ae5e5"
+     },
+     {
+      "Name": "Sexo",
+      "EdmName": "Sandbox.Sexo",
+      "Properties": [
+       {
+        "Name": "sexo",
+        "EdmName": "sexo2",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "4a049a3d-300d-427e-b3c3-8a228eb046cf"
+       },
+       {
+        "Name": "Sexo.1",
+        "EdmName": "Sexo_1",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "cc4e7ebe-6e07-4ba3-ab9b-07d86b01e5e4"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "028ef2f7-4173-4817-a6a8-8956082fa7b4"
+     },
+     {
+      "Name": "Ocupacional",
+      "EdmName": "Sandbox.Ocupacional",
+      "Properties": [
+       {
+        "Name": "cbo2002ocupação",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "73b4fd3d-478f-4dcd-bb2d-05f596f7e9ae"
+       },
+       {
+        "Name": "Ocupação",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "c62e52dc-20f7-46ac-ad8c-1ce1aebee7b1"
+       },
+       {
+        "Name": "cbo2002família",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "569e11eb-34e2-4b9d-9630-3cbaec795850"
+       },
+       {
+        "Name": "Família",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "32a8ac7b-d71e-4f15-88bc-e538a9a2d78e"
+       },
+       {
+        "Name": "cbo2002subgrupo",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "d61cfd35-2136-4d43-a5a0-a5241ec73fb4"
+       },
+       {
+        "Name": "Subgrupo",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "2fcac172-9cd4-482c-9af3-7e2a72e63d31"
+       },
+       {
+        "Name": "cbo2002princsubgrupo",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "2dbb2ba8-3ae2-4e26-8f62-f191f7deef3a"
+       },
+       {
+        "Name": "Principal Subgrupo",
+        "EdmName": "Principal_Subgrupo",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "525ec48b-daf5-452f-8600-d8598a3e09cb"
+       },
+       {
+        "Name": "cbo2002grgrupo",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "a5121a29-f042-4f5e-b8eb-580ecd6f50ae"
+       },
+       {
+        "Name": "Grande Grupo",
+        "EdmName": "Grande_Grupo",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "cbo2002grgrupo"
+         ]
+        },
+        "StableName": "42880f1f-17aa-41d9-88f0-1e41c2431150"
+       }
+      ],
+      "Hierarchies": [
+       {
+        "Name": "Hierarquia Ocupacional",
+        "Levels": [
+         {
+          "Name": "Grande Grupo",
+          "Column": "Grande Grupo",
+          "StableName": "0b5e20e3-b915-4e60-b158-3e174f05d149"
+         },
+         {
+          "Name": "Principal Subgrupo",
+          "Column": "Principal Subgrupo",
+          "StableName": "cd0e16f9-ee79-4c0d-bad3-257c1944c2f5"
+         },
+         {
+          "Name": "Subgrupo",
+          "Column": "Subgrupo",
+          "StableName": "8cb223d3-2b4c-465c-97d8-5b78622b9e51"
+         },
+         {
+          "Name": "Família",
+          "Column": "Família",
+          "StableName": "7116bf0f-9cdb-4e23-ab62-bd28dd0dea12"
+         },
+         {
+          "Name": "Ocupação",
+          "Column": "Ocupação",
+          "StableName": "458692c5-488d-4fed-8108-389def8d7615"
+         }
+        ],
+        "StableName": "144a6cfd-1fb3-47cd-9d4d-3dc063e87970"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "bec3670d-4bfa-4fb5-93dc-42289fe2a898"
+     },
+     {
+      "Name": "Grau de Instrução",
+      "EdmName": "Sandbox.Grau_de_Instrução",
+      "Properties": [
+       {
+        "Name": "graudeinstrução",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "27c59ac6-60fc-4099-a055-312d5b087017"
+       },
+       {
+        "Name": "Grau de Instrução",
+        "EdmName": "Grau_de_Instrução2",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "graudeinstrução"
+         ]
+        },
+        "StableName": "f4aedd57-79ea-4c00-8612-9ae9d7c5634f"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "1d475104-5d59-4462-9362-b7a621123653"
+     },
+     {
+      "Name": "Aprendizes",
+      "EdmName": "Sandbox.Aprendizes",
+      "Properties": [
+       {
+        "Name": "indicadoraprendiz",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "3c28436d-c7c4-4c8f-ad98-6620b10bf521"
+       },
+       {
+        "Name": "Aprendiz",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Ordem"
+         ]
+        },
+        "StableName": "6228af53-9b71-43d4-a02d-2996862a6bc3"
+       },
+       {
+        "Name": "Ordem",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "8099655d-b7c6-43a3-97aa-f44545437686"
+       }
+      ],
+      "NavigationProperties": [
+       {
+        "Name": "Intermitentes_Ordem",
+        "Active": false,
+        "TargetEntity": "Intermitentes",
+        "SourceMultiplicity": 0,
+        "TargetMultiplicity": 0,
+        "CrossFilterDirection": 1
+       },
+       {
+        "Name": "Temporários_Ordem",
+        "Active": false,
+        "TargetEntity": "Temporários",
+        "SourceMultiplicity": 0,
+        "TargetMultiplicity": 0,
+        "CrossFilterDirection": 1
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "b9b6b175-d038-440f-9361-4394b4057f30"
+     },
+     {
+      "Name": "Intermitentes",
+      "EdmName": "Sandbox.Intermitentes",
+      "Properties": [
+       {
+        "Name": "indtrabintermitente",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "d87bf524-2dc0-4f9b-a191-924f0429cd0d"
+       },
+       {
+        "Name": "Intermitente",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Ordem"
+         ]
+        },
+        "StableName": "49441876-0727-4e02-8d12-6d25b437542f"
+       },
+       {
+        "Name": "Ordem",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "fa44d4f3-03eb-4305-9b3d-81c4eb10ef14"
+       }
+      ],
+      "NavigationProperties": [
+       {
+        "Name": "Aprendizes_Ordem3",
+        "Active": false,
+        "TargetEntity": "Aprendizes",
+        "SourceMultiplicity": 0,
+        "TargetMultiplicity": 0,
+        "CrossFilterDirection": 1
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "031de974-4530-4dcf-bcb5-c100e9b44f4c"
+     },
+     {
+      "Name": "Temporários",
+      "EdmName": "Sandbox.Temporários",
+      "Properties": [
+       {
+        "Name": "indtrabtemp",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "4fbdfd33-6a9e-40b4-8114-3f28215b6b1e"
+       },
+       {
+        "Name": "Temporário",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Ordem"
+         ]
+        },
+        "StableName": "84e90dc5-094b-4fd9-bd9d-a3487aedab00"
+       },
+       {
+        "Name": "Ordem",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "69ef0c41-99c8-4494-81b3-1801600bb216"
+       }
+      ],
+      "NavigationProperties": [
+       {
+        "Name": "Aprendizes_Ordem4",
+        "Active": false,
+        "TargetEntity": "Aprendizes",
+        "SourceMultiplicity": 0,
+        "TargetMultiplicity": 0,
+        "CrossFilterDirection": 1
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "28c1468f-2ec7-406d-8d80-e5ab24c94c3c"
+     },
+     {
+      "Name": "Estrangeiros",
+      "EdmName": "Sandbox.Estrangeiros",
+      "Properties": [
+       {
+        "Name": "indestrangeiro",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "d0537a8a-eaae-47ea-a8c3-4578cfc01f64"
+       },
+       {
+        "Name": "Estrangeiro",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "Ordem"
+         ]
+        },
+        "StableName": "6135d0b3-cdf7-43b3-9107-e6be17e3d7d4"
+       },
+       {
+        "Name": "Ordem",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "d7a348e5-e680-4924-8551-494912c6f011"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "94e24321-84c1-48da-86a4-4660e8569733"
+     },
+     {
+      "Name": "Nacionalidades",
+      "EdmName": "Sandbox.Nacionalidades",
+      "Properties": [
+       {
+        "Name": "nacionalidade",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "8f3ab247-ac5a-4063-805a-29250de08e31"
+       },
+       {
+        "Name": "Nacionalidade.1",
+        "EdmName": "Nacionalidade_1",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "nacionalidade"
+         ]
+        },
+        "StableName": "40839144-0474-4d8f-a67c-7e60713fbe69"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "007bf77d-c807-49cf-b5fb-e7f9a2f44d7a"
+     },
+     {
+      "Name": "Medidas",
+      "EdmName": "Sandbox.Medidas",
+      "Properties": [
+       {
+        "Name": "Admitidos",
+        "DataType": 4,
+        "FormatString": "#,0",
+        "Measure": {
+         "DistributiveAggregate": 0,
+         "DistributiveBy": [
+          "Dados - Movimentações"
+         ]
+        },
+        "StableName": "272c0850-7212-410e-985e-164400807aa9"
+       },
+       {
+        "Name": "Desligados",
+        "DataType": 4,
+        "FormatString": "#,0",
+        "Measure": {
+         "DistributiveAggregate": 0,
+         "DistributiveBy": [
+          "Dados - Movimentações"
+         ]
+        },
+        "StableName": "c8679006-b95c-4895-a5d1-0d5175a261d5"
+       },
+       {
+        "Name": "Saldo",
+        "DataType": 4,
+        "FormatString": "#,0",
+        "Measure": {
+         "DistributiveAggregate": 0,
+         "DistributiveBy": [
+          "Dados - Movimentações"
+         ]
+        },
+        "StableName": "c3f9dabb-5c95-45c5-95b0-a88c9f89ce15"
+       },
+       {
+        "Name": "Taxa de Rotatividade",
+        "EdmName": "Taxa_de_Rotatividade",
+        "DataType": 3,
+        "FormatString": "0.0%;-0.0%;0.0%",
+        "Measure": {},
+        "StableName": "6897fcd2-8838-42bb-b8b5-4a97e3d12cc4"
+       },
+       {
+        "Name": "Saldo Acumulado",
+        "EdmName": "Saldo_Acumulado",
+        "DataType": 4,
+        "FormatString": "0",
+        "Measure": {},
+        "StableName": "46a6a937-9789-404b-9b7b-0152cbab7fce"
+       },
+       {
+        "Name": "Vr. Relativa",
+        "EdmName": "Vr__Relativa",
+        "DataType": 3,
+        "FormatString": "0.00%;-0.00%;0.00%",
+        "Measure": {},
+        "StableName": "44f83afa-255d-4ab1-82a0-5b160dfbff62"
+       },
+       {
+        "Name": "Tempo de Emprego (Desligados)",
+        "EdmName": "Tempo_de_Emprego__Desligados_",
+        "DataType": 3,
+        "FormatString": "0.0",
+        "Measure": {},
+        "StableName": "7ea45646-6942-4f7f-8e9a-6571af36131b"
+       },
+       {
+        "Name": "Estoque Mensal",
+        "EdmName": "Estoque_Mensal",
+        "DataType": 4,
+        "FormatString": "#,0",
+        "Measure": {},
+        "StableName": "aec39155-2c11-4a39-b86f-4cf06f0fdeeb"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "c0b43c01-3b54-469d-a06e-f46570411cc1"
+     },
+     {
+      "Name": "TabelaDeDatas",
+      "EdmName": "Sandbox.TabelaDeDatas",
+      "Properties": [
+       {
+        "Name": "competência",
+        "DataType": 3,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "764d0814-cf2c-4e23-a030-e0fc1b794755"
+       },
+       {
+        "Name": "Data",
+        "DataType": 7,
+        "FormatString": "G",
+        "Column": {
+         "DefaultAggregate": 1,
+         "Variations": [
+          {
+           "Name": "Variation",
+           "Default": true,
+           "NavigationProperty": "LocalDateTable_9b82530a-b08e-43fc-8e3a-39c225627f7d_Date",
+           "DefaultHierarchy": "Hierarquia de datas"
+          }
+         ]
+        },
+        "StableName": "13b0e1a8-cb22-45bc-82b6-d5faa4f9a317"
+       },
+       {
+        "Name": "Ano",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "65790256-3863-4639-817e-dd597bf08b7d"
+       },
+       {
+        "Name": "Mês",
+        "DataType": 1,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "ef865091-bd12-4d20-b4ec-63b1738f74e1"
+       }
+      ],
+      "NavigationProperties": [
+       {
+        "Name": "LocalDateTable_9b82530a-b08e-43fc-8e3a-39c225627f7d_Date",
+        "Active": true,
+        "TargetEntity": "LocalDateTable_9b82530a-b08e-43fc-8e3a-39c225627f7d",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "ca12d16c-1a1e-43e4-9124-b66a19fea9ce"
+     },
+     {
+      "Name": "LocalDateTable_9b82530a-b08e-43fc-8e3a-39c225627f7d",
+      "EdmName": "Sandbox.LocalDateTable_9b82530a_b08e_43fc_8e3a_39c225627f7d",
+      "ShowAsVariationsOnly": true,
+      "Properties": [
+       {
+        "Name": "Date",
+        "DataType": 7,
+        "DataCategory": "PaddedDateTableDates",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "ca96595a-2286-4d9a-9a1f-c9e71f79003e"
+       },
+       {
+        "Name": "Ano",
+        "DataType": 4,
+        "DataCategory": "Years",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "2464d572-a620-4384-abab-f32019a5753a"
+       },
+       {
+        "Name": "MonthNo",
+        "DataType": 4,
+        "DataCategory": "MonthOfYear",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "bd9946b4-cddb-4066-afcf-d9dca822a2ec"
+       },
+       {
+        "Name": "Mês",
+        "DataType": 1,
+        "DataCategory": "Months",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "MonthNo"
+         ]
+        },
+        "StableName": "e1730d88-f544-4e3c-bad1-95b1d507b4ff"
+       },
+       {
+        "Name": "QuarterNo",
+        "DataType": 4,
+        "DataCategory": "QuarterOfYear",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "e594d5a1-ad71-4e9c-a915-1fa31db28df8"
+       },
+       {
+        "Name": "Trimestre",
+        "DataType": 1,
+        "DataCategory": "Quarters",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "QuarterNo"
+         ]
+        },
+        "StableName": "6f04b451-f65a-4949-83b1-4016929667b6"
+       },
+       {
+        "Name": "Dia",
+        "DataType": 4,
+        "DataCategory": "DayOfMonth",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "37c812b8-f00a-4976-9845-bdec9f12ce5b"
+       }
+      ],
+      "Hierarchies": [
+       {
+        "Name": "Hierarquia de datas",
+        "Levels": [
+         {
+          "Name": "Ano",
+          "Column": "Ano",
+          "StableName": "ef6aad74-13d1-4974-84ad-9638dd7c2129"
+         },
+         {
+          "Name": "Trimestre",
+          "Column": "Trimestre",
+          "StableName": "45c9f9c2-f59a-4502-bf2b-6d93bc484ed4"
+         },
+         {
+          "Name": "Mês",
+          "Column": "Mês",
+          "StableName": "972fd44a-1043-4661-b5f0-941fb21003de"
+         },
+         {
+          "Name": "Dia",
+          "Column": "Dia",
+          "StableName": "b59604c3-99f6-410b-bbd6-3a96b650ab17"
+         }
+        ],
+        "StableName": "99abf5b9-ff85-466b-8292-505ad04cc13f"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "14257cee-b7da-4cb0-9d25-4d280b2f33ec"
+     },
+     {
+      "Name": "Dados - Estoque",
+      "EdmName": "Sandbox.Dados___Estoque",
+      "Properties": [
+       {
+        "Name": "município",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "4ba992f9-6c98-4d9c-a13a-0ba60aa43b07"
+       },
+       {
+        "Name": "subclasse",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "ee6ae6dd-3560-42f2-9d65-1f5550eb3669"
+       },
+       {
+        "Name": "estoqueref",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 2
+        },
+        "StableName": "ccc772a1-2b3a-4971-ad8a-4aae58650254"
+       },
+       {
+        "Name": "Ano",
+        "DataType": 7,
+        "FormatString": "yyyy",
+        "Column": {
+         "DefaultAggregate": 1,
+         "Variations": [
+          {
+           "Name": "Variation",
+           "Default": true,
+           "NavigationProperty": "LocalDateTable_8abaa428-6814-4cf4-b1f4-afc05303a32a_Date",
+           "DefaultHierarchy": "Hierarquia de datas"
+          }
+         ]
+        },
+        "StableName": "209e5851-8be6-44e5-bec1-07858c1c44da"
+       },
+       {
+        "Name": "indicadoraprendiz",
+        "DataType": 4,
+        "FormatString": "0",
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "b7da2055-efe7-4193-b8ff-af66d6f0fb2f"
+       }
+      ],
+      "NavigationProperties": [
+       {
+        "Name": "Econômico_Código CNAE 2.0 Subclasse2",
+        "Active": true,
+        "TargetEntity": "Econômico",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Geográfico_Código Município2",
+        "Active": true,
+        "TargetEntity": "Geográfico",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "Aprendizes_indicadoraprendiz2",
+        "Active": true,
+        "TargetEntity": "Aprendizes",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       },
+       {
+        "Name": "LocalDateTable_8abaa428-6814-4cf4-b1f4-afc05303a32a_Date",
+        "Active": true,
+        "TargetEntity": "LocalDateTable_8abaa428-6814-4cf4-b1f4-afc05303a32a",
+        "SourceMultiplicity": 2,
+        "TargetMultiplicity": 0
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "b2349df5-eea3-4c21-baa2-317193ab1ce1"
+     },
+     {
+      "Name": "LocalDateTable_8abaa428-6814-4cf4-b1f4-afc05303a32a",
+      "EdmName": "Sandbox.LocalDateTable_8abaa428_6814_4cf4_b1f4_afc05303a32a",
+      "ShowAsVariationsOnly": true,
+      "Properties": [
+       {
+        "Name": "Date",
+        "DataType": 7,
+        "DataCategory": "PaddedDateTableDates",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "24eb3a88-9355-4388-af45-146f3692991e"
+       },
+       {
+        "Name": "Ano",
+        "DataType": 4,
+        "DataCategory": "Years",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "95ab9cfd-8610-44c3-a196-32e639df38cd"
+       },
+       {
+        "Name": "MonthNo",
+        "DataType": 4,
+        "DataCategory": "MonthOfYear",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "cfb21649-4b05-49ed-86d3-d170c6bf3aa0"
+       },
+       {
+        "Name": "Mês",
+        "DataType": 1,
+        "DataCategory": "Months",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "MonthNo"
+         ]
+        },
+        "StableName": "e53c15d7-bfab-4db4-9b94-cfb497d7c464"
+       },
+       {
+        "Name": "QuarterNo",
+        "DataType": 4,
+        "DataCategory": "QuarterOfYear",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "85ae0dd2-379c-4718-b51b-6da7f19dcff0"
+       },
+       {
+        "Name": "Trimestre",
+        "DataType": 1,
+        "DataCategory": "Quarters",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1,
+         "OrderBy": [
+          "QuarterNo"
+         ]
+        },
+        "StableName": "fe7fc1a6-0da1-4c40-9c7c-9d400a8f8aaa"
+       },
+       {
+        "Name": "Dia",
+        "DataType": 4,
+        "DataCategory": "DayOfMonth",
+        "Hidden": true,
+        "Column": {
+         "DefaultAggregate": 1
+        },
+        "StableName": "1f6c1a62-3537-4a6c-b3ff-3c0e12118162"
+       }
+      ],
+      "Hierarchies": [
+       {
+        "Name": "Hierarquia de datas",
+        "Levels": [
+         {
+          "Name": "Ano",
+          "Column": "Ano",
+          "StableName": "88c74527-d273-4588-8096-e6dda8b972ef"
+         },
+         {
+          "Name": "Trimestre",
+          "Column": "Trimestre",
+          "StableName": "a3daa8bc-5eb4-4d52-9e57-34bd0957b4b6"
+         },
+         {
+          "Name": "Mês",
+          "Column": "Mês",
+          "StableName": "c77ac207-24e7-4c2d-93ec-90eebb3f8166"
+         },
+         {
+          "Name": "Dia",
+          "Column": "Dia",
+          "StableName": "a4e2c3e8-06f2-494b-9ddc-37e2ac0b7a0f"
+         }
+        ],
+        "StableName": "abb087bd-5c75-44eb-b7d0-4799792a2da4"
+       }
+      ],
+      "Capabilities": {
+       "CanEditStorageMode": false,
+       "SupportsClustering": false,
+       "SupportsBinByCount": false
+      },
+      "StableName": "21708434-4fab-4fa2-9d93-e8467082322f"
+     }
+    ],
+    "Capabilities": {
+     "SupportsMedian": true,
+     "SupportsPercentile": true,
+     "SupportsScopedEval": true,
+     "SupportsStringMinMax": true,
+     "SupportsMultiTableTupleFilters": true,
+     "SupportsTimeIntelligenceQuickMeasures": true,
+     "SupportsBinnedLineSample": true,
+     "SupportsOverlappingPointsSample": true,
+     "SupportsInsights": true,
+     "SupportsQna": true,
+     "SupportsInstanceFilters": true,
+     "Insights": {
+      "SupportsDistributionFactors": true,
+      "SupportsExplainChange": true,
+      "SupportsExplore": true,
+      "SupportsKeyDrivers": true,
+      "SupportsRelatedInsights": true,
+      "SupportsDecomposition": true,
+      "SupportsExplainAnomalies": true,
+      "SupportsCompatibleFields": true,
+      "SupportsQuerySuggestions": true,
+      "SupportsExplainVarianceToTarget": true,
+      "SupportsGenerateSummaries": true
+     },
+     "SupportsSubqueryRegrouping": true,
+     "SupportsTopNPerLevel": true,
+     "SupportsScopedAggregates": true,
+     "SupportsExtensionColumns": true,
+     "IsQnaEnabled": true,
+     "SupportsScopedDataReduction": true,
+     "TransformCapabilities": {
+      "SupportedTransforms": [
+       "SpatialClustering",
+       "KMeansClustering",
+       "ExtractTrend",
+       "AggregateSummary",
+       "CorrelationSummary",
+       "LargestDifferenceSummary",
+       "TrendSummary",
+       "TopRightHandCornerSummary",
+       "DetectAnomaly",
+       "SampleTimeSeriesData",
+       "SampleAndDetectAnomaly",
+       "ChangeSummary",
+       "LargestCategorySummary",
+       "LargestDivergenceSummary",
+       "RegionWithMostPointsSummary",
+       "HighPointLowPointSummary",
+       "Unpivot"
+      ]
+     },
+     "SupportsGroupSynchronization": true,
+     "SupportsSparklineData": true,
+     "SupportsVisualCalculations": true,
+     "IsNaturalLanguageSupported": true,
+     "IsNaturalLanguageEnabled": true
+    }
+   },
+   "error": null
+  }
+ ]
+}

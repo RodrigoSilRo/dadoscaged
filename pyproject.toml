@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dadoscaged"
+version = "1.0.0"
+description = "Aquisição documentada e reprodutível de dados do Painel do Novo CAGED"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Rodrigo Silveira da Rosa" }]
+dependencies = []
+
+[project.optional-dependencies]
+excel = ["pandas>=2.0", "openpyxl>=3.1"]
+
+[project.urls]
+Repository = "https://github.com/RodrigoSilRo/dadoscaged"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,7 @@
+# Código e documentação: normalizados para LF no repositório.
+* text=auto eol=lf
+
+# Dados: NUNCA converter. O sha256 registrado no .manifesto.json precisa
+# continuar válido após um clone em qualquer sistema operacional.
+*.csv  -text
+*.xlsx binary
