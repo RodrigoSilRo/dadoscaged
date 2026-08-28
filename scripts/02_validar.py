@@ -13,7 +13,7 @@ import json
 import os
 
 import _caminho
-from dadoscaged import config, validate
+from dadoscaged import config, extract, validate
 
 
 def main():
@@ -25,13 +25,20 @@ def main():
     args = p.parse_args()
 
     setor = args.setor
-    manifesto = os.path.splitext(args.csv)[0] + ".manifesto.json"
-    if setor is None and os.path.exists(manifesto):
-        with open(manifesto, encoding="utf-8") as f:
-            m = json.load(f)
-        setor = m.get("setor")
-        print("manifesto: coletado em %s, refresh do painel %s"
-              % (m.get("coletado_em_utc"), m.get("ultimo_refresh_do_painel")))
+    nivel = "CNAE 2.0 Subclasse"
+    caminho_manifesto = os.path.splitext(args.csv)[0] + ".manifesto.json"
+    if os.path.exists(caminho_manifesto):
+        with open(caminho_manifesto, encoding="utf-8") as f:
+            man = json.load(f)
+        setor = setor or man.get("setor")
+        nivel = man.get("nivel", nivel)
+        dig = man.get("impressao_digital_dos_dados") or {}
+        print("manifesto: coletado em %s" % man.get("coletado_em_utc"))
+        print("           versao da fonte na coleta: %s competencias ate %s, sha256 %s"
+              % (dig.get("competencias"), dig.get("ultima_competencia"),
+                 (dig.get("sha256_dos_totais") or "?")[:16]))
+        print("           (refresh declarado pelo painel, nao confiavel: %s)"
+              % man.get("ultimo_refresh_declarado"))
     setor = setor or "Comércio"
     if setor == "todos":
         setor = None
@@ -41,9 +48,12 @@ def main():
         cabecalho = next(r)
         linhas = list(r)
 
-    medidas = [m for m in config.MEDIDAS_PADRAO if m.lower() in cabecalho]
-    print("arquivo  : %s (%d linhas)\n" % (args.csv, len(linhas)))
-    rel = validate.conferir(cabecalho, linhas, grande_grupamento=setor, medidas=medidas)
+    conhecidas = config.MEDIDAS_ADITIVAS + config.MEDIDAS_COMPOSTAS
+    medidas = [m for m in conhecidas if extract._rotulo(m) in cabecalho]
+    print("arquivo  : %s (%d linhas)" % (args.csv, len(linhas)))
+    print("nivel    : %s\n" % nivel)
+    rel = validate.conferir(cabecalho, linhas, grande_grupamento=setor, medidas=medidas,
+                            nivel=nivel)
     validate.imprimir(rel)
     return 0 if rel["ok"] else 1
 

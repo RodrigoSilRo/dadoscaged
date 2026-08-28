@@ -9,3 +9,6 @@ Thumbs.db
 # Respostas brutas da API: volumosas e reproduzíveis pelos scripts.
 # Para arquivar uma coleta específica, comente a linha abaixo.
 data/raw/
+
+# Microdados baixados do FTP do MTE (volumosos; rebaixaveis pelo script 04).
+data/microdados/

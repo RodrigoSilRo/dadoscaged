@@ -1,16 +1,63 @@
 {
- "coletado_em_utc": "2026-08-28T17:21:40+00:00",
+ "coletado_em_utc": "2026-08-28T18:12:59+00:00",
  "painel_url": "https://app.powerbi.com/view?r=eyJrIjoiNWI5NWI0ODEtYmZiYy00Mjg3LTkzNWUtY2UyYjIwMDE1YWI2IiwidCI6IjNlYzkyOTY5LTVhNTEtNGYxOC04YWM5LWVmOThmYmFmYTk3OCJ9",
  "cluster": "https://wabi-brazil-south-d-primary-api.analysis.windows.net",
  "model_id": 528307,
  "dataset_id": "4859b5fd-e3ad-4a7c-95fe-aa62fc046d96",
  "report_id": "534733",
  "pacote_nome": "Painel Novo CAGED.pbix",
- "pacote_versao": "ID-19810754",
- "ultimo_refresh_do_painel": "2026-07-29T18:16:56.83",
+ "pacote_versao": "ID-23435724",
+ "ultimo_refresh_declarado": "2026-08-28T17:32:52.753",
+ "impressao_digital_dos_dados": {
+  "escopo": "linhas extraidas",
+  "medidas": [
+   "Admitidos",
+   "Desligados",
+   "Saldo",
+   "Estoque Mensal"
+  ],
+  "competencias": 79,
+  "primeira_competencia": 202001,
+  "ultima_competencia": 202607,
+  "sha256_dos_totais": "a9f60b12a6fa0bdf143d067963f1c364d8fe10b7d4d243fdd3c5d4e163854001"
+ },
+ "fonte_servia_versao_unica_no_inicio": true,
+ "amostras_da_fonte_antes_da_coleta": [
+  {
+   "escopo": "Comércio",
+   "competencias": 78,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202606,
+   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+  },
+  {
+   "escopo": "Comércio",
+   "competencias": 78,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202606,
+   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+  },
+  {
+   "escopo": "Comércio",
+   "competencias": 78,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202606,
+   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+  },
+  {
+   "escopo": "Comércio",
+   "competencias": 78,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202606,
+   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+  }
+ ],
+ "identidade_do_arquivo_coincide_com_amostra_inicial": false,
+ "mes_de_referencia_declarado_na_capa": 202607,
+ "ultima_competencia_no_arquivo": 202607,
  "arquivo": "caged_comercio_subclasse_mensal.csv",
- "sha256": "da644545b0357dd775ae7aab400951116bca817704559423592b4eef1ae3e0ba",
- "linhas": 17675,
+ "sha256": "ff3714d8fe620deb5db381b0a42b12f3024c5e56e6dfe78ee52797288da286f5",
+ "linhas": 18023,
  "colunas": [
   "competencia",
   "ano",
@@ -30,14 +77,20 @@
   "subclasse",
   "admitidos",
   "desligados",
-  "saldo"
+  "saldo",
+  "tempo_de_emprego_desligados",
+  "estoque_mensal",
+  "vr_relativa"
  ],
  "setor": "Comércio",
  "nivel": "CNAE 2.0 Subclasse",
  "medidas": [
   "Admitidos",
   "Desligados",
-  "Saldo"
+  "Saldo",
+  "Tempo de Emprego (Desligados)",
+  "Estoque Mensal",
+  "Vr. Relativa"
  ],
  "anos": [
   "2020",
@@ -49,10 +102,46 @@
   "2026"
  ],
  "validacao": {
-  "meses_conferidos": 78,
-  "divergencias": 0,
+  "medidas_aditivas": [
+   "Admitidos",
+   "Desligados",
+   "Saldo",
+   "Estoque Mensal"
+  ],
+  "medidas_compostas": [
+   "Tempo de Emprego (Desligados)",
+   "Vr. Relativa"
+  ],
+  "soma_x_total": {
+   "meses_conferidos": 79,
+   "divergencias": 0
+  },
+  "nivel_pai": {
+   "nivel": "CNAE 2.0 Classe",
+   "divergencias": 0
+  },
+  "residuos_da_fonte": {
+   "Estoque Mensal": {
+    "meses_com_residuo": 35,
+    "residuo_absoluto_total": 113066.0,
+    "desvio_relativo_maximo": 0.0016665576931301936,
+    "competencia_do_maximo": 202006
+   }
+  },
+  "celula_a_celula": {
+   "competencias": [
+    202203,
+    202212,
+    202307,
+    202311,
+    202411,
+    202602
+   ],
+   "celulas_conferidas": 8196,
+   "divergencias": 0
+  },
   "ok": true
  },
  "gerado_por": "scripts/01_extrair.py",
- "gerado_em_utc": "2026-08-28T17:21:41+00:00"
+ "gerado_em_utc": "2026-08-28T18:13:00+00:00"
 }

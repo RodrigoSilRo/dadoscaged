@@ -59,4 +59,7 @@ print("\nFonte identificada:")
 print("  pacote        : %s" % pac.get("name"))
 print("  versao        : %s" % pac.get("version"))
 print("  ultimo refresh: %s" % pac.get("LastRefreshTime"))
-print("  competencias  : %d meses" % len(extract.listar_competencias()))
+# Uma amostra so: durante uma atualizacao em propagacao, requisicoes
+# consecutivas podem ver series diferentes (docs/LIMITACOES.md, secao 2.1).
+print("  competencias  : %d meses (amostra unica; ver LIMITACOES 2.1)"
+      % len(extract.listar_competencias()))

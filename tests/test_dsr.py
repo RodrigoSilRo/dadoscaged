@@ -117,3 +117,69 @@ class TesteConsultas(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TesteMedidas(unittest.TestCase):
+    """Classificacao das medidas e convencoes de valor."""
+
+    def test_toda_medida_padrao_esta_classificada(self):
+        from dadoscaged import config
+        classificadas = set(config.MEDIDAS_ADITIVAS) | set(config.MEDIDAS_COMPOSTAS)
+        for m in config.MEDIDAS_PADRAO:
+            self.assertIn(m, classificadas,
+                          "%r nao foi classificada como aditiva nem composta" % m)
+
+    def test_aditivas_e_compostas_nao_se_sobrepoem(self):
+        from dadoscaged import config
+        self.assertEqual(set(config.MEDIDAS_ADITIVAS) & set(config.MEDIDAS_COMPOSTAS), set())
+
+    def test_rotulo_remove_parenteses_e_acentos(self):
+        from dadoscaged.extract import _rotulo
+        self.assertEqual(_rotulo("Tempo de Emprego (Desligados)"),
+                         "tempo_de_emprego_desligados")
+        self.assertEqual(_rotulo("Vr. Relativa"), "vr_relativa")
+        self.assertEqual(_rotulo("CNAE 2.0 Subclasse"), "subclasse")
+        self.assertEqual(_rotulo("Código CNAE 2.0 Divisão"), "cod_divisao")
+
+    def test_rotulos_das_medidas_sao_unicos(self):
+        from dadoscaged import config
+        from dadoscaged.extract import _rotulo
+        todas = config.MEDIDAS_ADITIVAS + config.MEDIDAS_COMPOSTAS
+        self.assertEqual(len(todas), len({_rotulo(m) for m in todas}))
+
+    def test_numero_aceita_decimal_em_texto(self):
+        from dadoscaged.validate import _numero
+        # As medidas compostas voltam da API como string de alta precisao.
+        self.assertAlmostEqual(_numero("22.220152413209146"), 22.220152413209146)
+        self.assertEqual(_numero(None), None)
+        self.assertEqual(_numero(""), None)
+        self.assertEqual(_numero(0), 0.0)
+
+    def test_projecoes_incluem_medidas_compostas_no_fim(self):
+        from dadoscaged import config, extract
+        _, cab = extract.montar_projecoes("CNAE 2.0 Subclasse", config.MEDIDAS_PADRAO)
+        self.assertEqual(cab[-len(config.MEDIDAS_PADRAO):],
+                         [extract._rotulo(m) for m in config.MEDIDAS_PADRAO])
+        self.assertEqual(cab.index("cod_subclasse") + 1, cab.index("subclasse"))
+
+
+class TesteMesDeReferencia(unittest.TestCase):
+    """Leitura do mes declarado na capa do painel (sem acessar a rede)."""
+
+    def _modelo(self, texto):
+        return {"exploration": {"explorationContent": {"explorationDocument": texto}}}
+
+    def test_le_o_titulo_em_caixa_alta(self):
+        from dadoscaged import extract
+        doc = '{"textRuns":[{"value":"JUNHO DE 2026"}]}'
+        self.assertEqual(extract.mes_de_referencia_declarado(self._modelo(doc)), 202606)
+
+    def test_ignora_o_texto_metodologico_em_minusculas(self):
+        from dadoscaged import extract
+        doc = ('a partir da competencia de outubro de 2021 a metodologia mudou; '
+               '{"value":"MARÇO DE 2024"}')
+        self.assertEqual(extract.mes_de_referencia_declarado(self._modelo(doc)), 202403)
+
+    def test_sem_titulo_devolve_none(self):
+        from dadoscaged import extract
+        self.assertIsNone(extract.mes_de_referencia_declarado(self._modelo("{}")))

@@ -60,7 +60,33 @@ CODIGO_DE = {
     "CNAE 2.0 Subclasse": "Código CNAE 2.0 Subclasse",
 }
 
-MEDIDAS_PADRAO = ["Admitidos", "Desligados", "Saldo"]
+MEDIDAS_PADRAO = ["Admitidos", "Desligados", "Saldo",
+                  "Tempo de Emprego (Desligados)", "Estoque Mensal", "Vr. Relativa"]
+
+# Classificação das medidas quanto ao comportamento sob agregação. Ela determina
+# COMO cada medida pode ser validada e como o usuário pode reagregar a saída.
+#
+#   aditiva  — contagem; a soma entre categorias reproduz o agregado. Conferida
+#              por igualdade exata contra o total do painel.
+#   composta — média ou razão calculada em DAX. NÃO é somável: reagregar exige
+#              recalcular a partir das medidas aditivas. Conferida célula a
+#              célula contra uma consulta independente, no mesmo nível.
+#
+# Verificado empiricamente (ver docs/METODOLOGIA.md, seção 6).
+MEDIDAS_ADITIVAS = ["Admitidos", "Desligados", "Saldo", "Estoque Mensal"]
+MEDIDAS_COMPOSTAS = ["Tempo de Emprego (Desligados)", "Vr. Relativa",
+                     "Taxa de Rotatividade", "Saldo Acumulado"]
+
+# `Estoque Mensal` é aditiva com igualdade EXATA até o nível de Classe, nos 78
+# meses. Só no nível de Subclasse a soma excede o agregado, e apenas nos anos
+# iniciais da série (máx. 0,162% em 2020-06; exatamente zero de 2023 em diante).
+# É um desvio da própria fonte, no período de transição do Novo CAGED, e não da
+# extração — ver docs/LIMITACOES.md, seção 12.
+#
+# Ele não é "tolerado" no escuro: para essas medidas a conferência exige
+# igualdade exata no NÍVEL PAI do extraído, e mede o resíduo do nível extraído
+# em vez de ignorá-lo. Se o desvio aparecesse também no nível pai, seria falha.
+MEDIDAS_COM_DESVIO_NO_NIVEL_MAIS_FINO = ["Estoque Mensal"]
 
 # Limite de linhas por consulta. O backend aplica seu próprio teto; consultas
 # são particionadas por ano em extract.py para ficar bem abaixo dele.

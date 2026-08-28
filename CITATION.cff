@@ -1,17 +1,28 @@
 cff-version: 1.2.0
-title: "dadoscaged: aquisição documentada de dados do Painel do Novo CAGED"
+title: "dadoscaged: aquisição documentada do Painel do Novo CAGED"
 message: >-
-  Ao usar estes dados em publicação, cite o Ministério do Trabalho e Emprego
-  como fonte primária dos dados. Cite este repositório apenas como instrumento
-  de coleta, quando for relevante descrever o procedimento de aquisição.
+  Ao usar estes dados em publicação, cite o Ministério do Trabalho e Emprego como
+  fonte primária, informando a data da coleta e a última competência coberta — a
+  série é revisada a cada divulgação, portanto a safra faz parte da identidade do
+  dado. Ambas constam do arquivo .manifesto.json que acompanha cada CSV, junto da
+  impressão digital (sha256) da versão da fonte. Cite este repositório apenas como
+  instrumento de coleta, quando for relevante descrever o procedimento.
 type: software
 authors:
   - family-names: "Silveira da Rosa"
     given-names: "Rodrigo"
 repository-code: "https://github.com/RodrigoSilRo/dadoscaged"
 license: MIT
-version: "1.0.0"
+version: "1.1.0"
 date-released: "2026-08-28"
+keywords:
+  - Novo CAGED
+  - emprego formal
+  - mercado de trabalho
+  - Brasil
+  - CNAE
+  - dados administrativos
+  - reprodutibilidade
 
 references:
   - type: database
@@ -20,8 +31,18 @@ references:
       - name: "Ministério do Trabalho e Emprego (Brasil), Secretaria de Trabalho"
     url: "http://pdet.mte.gov.br/o-que-e-novo-caged"
     notes: >-
-      Fonte primária dos dados. Coleta realizada em 2026-08-28, sobre a versão
-      do painel com último refresh em 2026-07-29 (pacote "Painel Novo CAGED.pbix",
-      versão ID-19810754), cobrindo as competências de 2020-01 a 2026-06.
-      A série é revisada a cada divulgação: a data da coleta é parte da
-      identidade do dado.
+      Fonte primária dos agregados. Coleta de 2026-08-28, cobrindo as competências
+      de 2020-01 a 2026-07. Atenção: os metadados de versão do painel não mudam
+      quando os dados mudam — use a impressão digital registrada no manifesto para
+      identificar a safra.
+
+  - type: database
+    title: "Microdados do Novo CAGED"
+    authors:
+      - name: "Ministério do Trabalho e Emprego (Brasil), Secretaria de Trabalho"
+    url: "http://pdet.mte.gov.br"
+    notes: >-
+      Registros individuais, em ftp://ftp.mtps.gov.br/pdet/microdados/NOVO CAGED/.
+      Fonte da conferência independente feita por scripts/04_conferir_microdados.py,
+      que confirma o painel como agregação exata destes microdados. Fonte apropriada
+      para salário, cruzamentos livres e reconstrução de safras (as-first-published).

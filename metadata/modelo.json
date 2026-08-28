@@ -1,14 +1,14 @@
 {
  "package": {
   "id": 607989,
-  "version": "ID-19810754",
+  "version": "ID-23435724",
   "name": "Painel Novo CAGED.pbix",
   "contentProviderId": 7,
-  "lastRefreshTime": "/Date(1785349016830)/",
+  "lastRefreshTime": "/Date(1787938372753)/",
   "publishOrRefreshStatus": 0,
   "refreshInterval": 2147483647,
   "NextRefreshTime": "9999-12-31T23:59:59.997Z",
-  "LastRefreshTime": "2026-07-29T18:16:56.83",
+  "LastRefreshTime": "2026-08-28T17:32:52.753",
   "IsRefreshEnabled": true,
   "ObjectId": "2b0b88bb-6142-4422-ae27-1bffe2271509",
   "storageProviderType": 0,
@@ -20,7 +20,7 @@
     "PackageId": 607989,
     "UserId": 532182,
     "User": null,
-    "Payload": "{\"ExtendedDsid\":{\"blobCollectionId\":9532757,\"concatenatedInnerExceptionNames \":null,\"databaseName\":\"4859b5fd-e3ad-4a7c-95fe-aa62fc046d96\",\"details\":null,\"errorCode\":null,\"exceptionCulprit\":0,\"fileName\":\"Painel Novo CAGED.pbix\",\"fileSize\":563120957,\"informationProtectionLabelIssuerId\":null,\"informationProtectionOverrideLabelFlag\":0,\"isConfigureMode\":true,\"oneDriveSharePointViewerDocumentInfo\":null,\"originIdentifier\":\"Painel Novo CAGED.pbix\",\"packageContentBlobUri\":\"companionprovider\\/dac071d6-c245-4b1f-9706-6ec2d57d376a10zBli57-LAPQe7MDzB6KYGHyT0yAPw7b-va0zF0xOQ=.zip\",\"powerBICompanionSpecialHandlings\":0,\"publishTrigger\":null,\"resourceId\":null,\"serializedViewsBlobUri\":null,\"shadowWorkbookBlobUri\":null,\"sharePointDocumentProperties\":null,\"shouldRegeneratePackageZipBlob\":null,\"shouldRestreamFileFromSource\":true,\"sourceFileBlobId\":19810754,\"storageProviderType\":0,\"version\":\"ID-19810754\",\"virtualServerName\":\"sobe_wowvirtualserver\",\"workbookArtifacts\":1},\"ExtendedSid\":null}",
+    "Payload": "{\"ExtendedDsid\":{\"blobCollectionId\":9532757,\"concatenatedInnerExceptionNames \":null,\"databaseName\":\"4859b5fd-e3ad-4a7c-95fe-aa62fc046d96\",\"details\":null,\"errorCode\":null,\"exceptionCulprit\":0,\"fileName\":\"Painel Novo CAGED.pbix\",\"fileSize\":571792129,\"informationProtectionLabelIssuerId\":null,\"informationProtectionOverrideLabelFlag\":0,\"isConfigureMode\":true,\"oneDriveSharePointViewerDocumentInfo\":null,\"originIdentifier\":\"Painel Novo CAGED.pbix\",\"packageContentBlobUri\":\"companionprovider\\/dac071d6-c245-4b1f-9706-6ec2d57d376a10zBli57-LAPQe7MDzB6KYGHyT0yAPw7b-va0zF0xOQ=.zip\",\"powerBICompanionSpecialHandlings\":0,\"publishTrigger\":null,\"resourceId\":null,\"serializedViewsBlobUri\":null,\"shadowWorkbookBlobUri\":null,\"sharePointDocumentProperties\":null,\"shouldRegeneratePackageZipBlob\":null,\"shouldRestreamFileFromSource\":true,\"sourceFileBlobId\":23435724,\"storageProviderType\":0,\"version\":\"ID-23435724\",\"virtualServerName\":\"sobe_wowvirtualserver\",\"workbookArtifacts\":1},\"ExtendedSid\":null}",
     "OriginalPackageId": null,
     "OriginalSid": null,
     "OriginalDsid": null,
@@ -34,9 +34,9 @@
   "permissions": 7,
   "pbixResources": [
    {
-    "id": 1354664,
+    "id": 1578685,
     "packageId": 607989,
-    "pbixResourceBlobInfoId": 19811120
+    "pbixResourceBlobInfoId": 23435819
    }
   ],
   "featuresV2": [

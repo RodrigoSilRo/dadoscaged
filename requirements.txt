@@ -1,4 +1,9 @@
-# A aquisição e a validação usam apenas a biblioteca padrão do Python (>= 3.9).
-# As dependências abaixo servem apenas ao passo opcional de exportação .xlsx.
+# A aquisicao e a validacao (scripts 00, 01, 02) usam APENAS a biblioteca padrao
+# do Python 3.9+. As dependencias abaixo servem aos passos opcionais.
+
+# scripts/03_exportar_excel.py — exportacao para .xlsx
 pandas==2.3.1
 openpyxl==3.1.5
+
+# scripts/04_conferir_microdados.py — leitura dos .7z do FTP do MTE
+py7zr==1.1.3

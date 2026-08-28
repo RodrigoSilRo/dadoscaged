@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dadoscaged"
 version = "1.0.0"
-description = "Aquisição documentada e reprodutível de dados do Painel do Novo CAGED"
+description = "Aquisição documentada e reprodutível de dados do Painel do Novo CAGED (MTE)"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -14,9 +14,11 @@ dependencies = []
 
 [project.optional-dependencies]
 excel = ["pandas>=2.0", "openpyxl>=3.1"]
+microdados = ["py7zr>=1.0"]
 
 [project.urls]
 Repository = "https://github.com/RodrigoSilRo/dadoscaged"
+Issues = "https://github.com/RodrigoSilRo/dadoscaged/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

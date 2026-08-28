@@ -25,12 +25,22 @@ def main():
     # Todos os códigos são lidos como texto: são identificadores, não números
     # (perderiam zeros à esquerda).
     df = pd.read_csv(args.csv, sep=";", encoding="utf-8-sig", dtype=str)
-    medidas = [c for c in ("admitidos", "desligados", "saldo") if c in df.columns]
-    for c in medidas:
+
+    # Contagens viram inteiro; medidas compostas (media, razao) viram float e
+    # preservam o vazio como NaN — vazio nelas significa indefinido, nao zero.
+    contagens = [c for c in ("admitidos", "desligados", "saldo", "estoque_mensal")
+                 if c in df.columns]
+    compostas = [c for c in ("tempo_de_emprego_desligados", "vr_relativa",
+                             "taxa_de_rotatividade", "saldo_acumulado")
+                 if c in df.columns]
+    for c in contagens:
         df[c] = pd.to_numeric(df[c], errors="raise").astype("int64")
+    for c in compostas:
+        df[c] = pd.to_numeric(df[c], errors="coerce")
+    medidas = contagens + compostas
     df.insert(1, "data", pd.to_datetime(df["competencia"], format="%Y%m"))
 
-    nivel = df.columns[df.columns.get_loc(medidas[0]) - 1]
+    nivel = df.columns[df.columns.get_loc(contagens[0]) - 1]
     cod = "cod_" + nivel if "cod_" + nivel in df.columns else nivel
 
     saida = args.saida or os.path.splitext(args.csv)[0] + ".xlsx"
@@ -39,7 +49,8 @@ def main():
         df.pivot_table(index=[cod, nivel], columns="competencia", values="saldo",
                        aggfunc="sum", fill_value=0).to_excel(xw, sheet_name="saldo_por_mes")
         if "divisao" in df.columns:
-            (df.groupby(["competencia", "divisao"], as_index=False)[medidas].sum()
+            # So contagens sao somadas: medidas compostas nao sao aditivas.
+            (df.groupby(["competencia", "divisao"], as_index=False)[contagens].sum()
                .to_excel(xw, sheet_name="resumo_divisao", index=False))
 
     print("gravado: %s" % saida)
