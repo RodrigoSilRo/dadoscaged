@@ -8,6 +8,13 @@ do Power BI, que expõe o modelo semântico para consulta anônima.
 """
 
 # --- Link público divulgado pelo Ministério do Trabalho e Emprego -------------
+# O parâmetro "r" é base64 de {"k": <resource key>, "t": <tenant>} — mesma forma
+# estrutural das antigas API keys do Grafana ({"k": "...", "n": "...", "id": ...}),
+# o que faz scanners de segredo (ex.: GitGuardian) sinalizarem isto como possível
+# "Grafana Token" por coincidência de formato. NÃO é uma credencial do Grafana:
+# é a resource key pública do Power BI "Publish to Web" deste painel — o mesmo
+# valor que qualquer visitante usa ao abrir o link, sem autenticação. Confirmado
+# falso positivo; nada aqui precisa ser revogado ou removido.
 PAINEL_URL = (
     "https://app.powerbi.com/view?r=eyJrIjoiNWI5NWI0ODEtYmZiYy00Mjg3LTkzNWUt"
     "Y2UyYjIwMDE1YWI2IiwidCI6IjNlYzkyOTY5LTVhNTEtNGYxOC04YWM5LWVmOThmYmFmYTk3OCJ9"
