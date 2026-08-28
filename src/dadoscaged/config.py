@@ -39,6 +39,9 @@ TAB_TEMPO = "TabelaDeDatas"
 TAB_MEDIDAS = "Medidas"
 TAB_GEOGRAFICO = "Geográfico"
 
+# Coluna usada para recorte por unidade da federação (sigla: "SC", "SP", ...).
+COL_UF = "UF Sigla"
+
 # Hierarquia setorial, do nível mais agregado ao mais desagregado.
 HIERARQUIA_SETORIAL = [
     "Grande Grupamento",

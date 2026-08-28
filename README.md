@@ -83,14 +83,16 @@ Nenhum arquivo é gravado sem passar por três conferências independentes:
 1. **Medidas aditivas × total do painel.** A soma das linhas desagregadas é comparada,
    mês a mês, com o total do setor obtido em consulta separada no nível agregado.
    Igualdade exata.
-2. **Exatidão no nível pai.** Para medidas com desvio conhecido da fonte no nível mais
-   fino, exige-se igualdade exata no nível imediatamente acima, e o resíduo do nível
-   extraído é **medido e registrado**, não tolerado em silêncio.
+2. **Perfil do resíduo por nível.** `Estoque Mensal` não soma exato nos níveis mais finos,
+   e onde isso começa **depende do recorte** (Classe no Brasil, Grupo em SC). Em vez de
+   exigir exatidão num nível fixo, o resíduo é **medido em cada nível** e o nível mais fino
+   ainda exato fica registrado no manifesto.
 3. **Célula a célula.** Competências sorteadas são reconsultadas no mesmo nível de
    desagregação, mas **particionando por competência em vez de por ano**, e comparadas
    valor a valor em todas as medidas — inclusive as que não podem ser somadas.
 
-Resultado da coleta atual: **79/79 meses**, **8.196 células**, **0 divergências**.
+Resultado da coleta atual: **79/79 meses** e **0 divergências** nos dois arquivos —
+8.196 células conferidas no do Brasil, 7.968 no de SC.
 
 Há ainda uma quarta conferência, opcional e mais forte, que não compara o painel consigo
 mesmo: [`scripts/04_conferir_microdados.py`](scripts/04_conferir_microdados.py)
@@ -105,15 +107,15 @@ A aquisição e a validação usam **apenas a biblioteca padrão do Python** (3.
 
 ```bash
 python scripts/00_inventario_fonte.py     # registra schema e versão do painel
-python scripts/01_extrair.py              # extrai + valida + grava CSV e manifesto
-python scripts/02_validar.py data/processed/caged_comercio_subclasse_mensal.csv
+python scripts/01_extrair.py              # Brasil; use --uf SC para Santa Catarina
+python scripts/02_validar.py data/processed/caged_comercio_br_subclasse_mensal.csv
 ```
 
 Passos opcionais:
 
 ```bash
 pip install -r requirements.txt                      # pandas, openpyxl, py7zr
-python scripts/03_exportar_excel.py data/processed/caged_comercio_subclasse_mensal.csv
+python scripts/03_exportar_excel.py data/processed/caged_comercio_br_subclasse_mensal.csv
 python scripts/04_conferir_microdados.py --competencia 202203 --revisoes 9
 ```
 
@@ -126,6 +128,7 @@ python -m unittest discover -s tests -v
 ### Outros recortes
 
 ```bash
+python scripts/01_extrair.py --uf SC                       # recorte por UF
 python scripts/01_extrair.py --setor Serviços --nivel "CNAE 2.0 Classe"
 python scripts/01_extrair.py --setor todos --nivel "CNAE 2.0 Divisão" --anos 2024 2025 2026
 python scripts/01_extrair.py --medidas Admitidos Desligados Saldo
@@ -141,18 +144,26 @@ intermitente, temporário, estrangeiro) — ver [`docs/MODELO.md`](docs/MODELO.m
 
 ## Saída atual
 
-`data/processed/caged_comercio_subclasse_mensal.csv` — setor **Comércio** no menor nível
-disponível (**CNAE 2.0 Subclasse**), mês a mês:
+Dois arquivos em `data/processed/`, ambos com o setor **Comércio** no menor nível
+disponível (**CNAE 2.0 Subclasse**), mês a mês, competências 2020-01 a 2026-07:
 
-- **18.023 linhas** — 79 competências (2020-01 a 2026-07) × 231 subclasses CNAE
+| arquivo | recorte | linhas | subclasses |
+|---|---|---|---|
+| `caged_comercio_br_subclasse_mensal.csv` | Brasil | 18.023 | 231 |
+| `caged_comercio_sc_subclasse_mensal.csv` | Santa Catarina | 17.516 | 226 |
+
+O nome codifica o recorte: `caged_<setor>_<uf>_<nivel>_mensal.csv`. O recorte geográfico
+**não vira coluna** — está no nome do arquivo e no campo `uf` do manifesto. Some os dois
+por engano e você conta SC duas vezes.
+
 - hierarquia CNAE completa em colunas (código e nome de cada nível), de Grande Grupamento
   até Subclasse — permite reagregar para qualquer nível sem nova extração
 - medidas: `admitidos`, `desligados`, `saldo`, `estoque_mensal`,
   `tempo_de_emprego_desligados`, `vr_relativa`
-- separador `;`, UTF-8 com BOM, decimais com ponto
+- separador `;`, UTF-8 com BOM, decimais com ponto; `.xlsx` ao lado, para Excel
 
 Cada CSV vem com um `.manifesto.json` contendo data da coleta, identificadores do modelo,
-a impressão digital dos dados, o `sha256` do arquivo e o resultado completo das três
+a impressão digital dos dados, o `sha256` do arquivo, o recorte e o resultado completo das
 provas de validação.
 
 Descrição das variáveis, incluindo quais podem ser somadas:

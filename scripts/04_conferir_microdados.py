@@ -113,7 +113,7 @@ def main():
 
     # Valor de referência: o painel, na extração já validada.
     caminho_csv = args.csv or os.path.join(
-        _caminho.DIR_PROC, "caged_comercio_subclasse_mensal.csv")
+        _caminho.DIR_PROC, "caged_comercio_br_subclasse_mensal.csv")
     p_adm = p_des = 0
     with io.open(caminho_csv, encoding="utf-8-sig") as f:
         for r in csv.DictReader(f, delimiter=";"):

@@ -59,7 +59,19 @@ def montar_projecoes(nivel, medidas):
     return selects, cabecalho
 
 
-def extrair(nivel="CNAE 2.0 Subclasse", grande_grupamento="Comércio",
+def froms_e_filtro(grande_grupamento=None, uf=None):
+    """Tabelas e condições comuns a toda consulta com recorte setorial/geográfico."""
+    froms = [("e", config.TAB_ECONOMICO), ("t", config.TAB_TEMPO), ("m", config.TAB_MEDIDAS)]
+    where = []
+    if grande_grupamento:
+        where += query.filtro_em("e", "Grande Grupamento", [grande_grupamento])
+    if uf:
+        froms.append(("g", config.TAB_GEOGRAFICO))
+        where += query.filtro_em("g", config.COL_UF, [uf])
+    return froms, where
+
+
+def extrair(nivel="CNAE 2.0 Subclasse", grande_grupamento="Comércio", uf=None,
             anos=None, medidas=None, dir_raw=None, verboso=True):
     """Extrai a série mensal para um setor, no nível pedido.
 
@@ -70,21 +82,20 @@ def extrair(nivel="CNAE 2.0 Subclasse", grande_grupamento="Comércio",
     medidas = medidas or list(config.MEDIDAS_PADRAO)
     anos = anos or listar_anos()
     selects, cabecalho = montar_projecoes(nivel, medidas)
-    froms = [("e", config.TAB_ECONOMICO), ("t", config.TAB_TEMPO), ("m", config.TAB_MEDIDAS)]
+    froms, filtro_base = froms_e_filtro(grande_grupamento, uf)
     n_dim = len(cabecalho) - 3 - len(medidas)  # colunas setoriais projetadas
 
     linhas = []
     for ano in anos:
-        where = list(query.filtro_em("t", "Ano", [ano]))
-        if grande_grupamento:
-            where += query.filtro_em("e", "Grande Grupamento", [grande_grupamento])
+        where = list(query.filtro_em("t", "Ano", [ano])) + filtro_base
 
         comando = query.montar(froms, selects, where=where)
         resposta = client.executar_consulta(comando)
 
         if dir_raw:
             os.makedirs(dir_raw, exist_ok=True)
-            base = "%s_%s_%s" % (_rotulo(grande_grupamento or "todos"), _rotulo(nivel), ano)
+            base = "%s_%s_%s_%s" % (_rotulo(grande_grupamento or "todos"),
+                                    (uf or "br").lower(), _rotulo(nivel), ano)
             with open(os.path.join(dir_raw, base + ".consulta.json"), "w", encoding="utf-8") as f:
                 json.dump(comando, f, ensure_ascii=False, indent=1)
             with open(os.path.join(dir_raw, base + ".resposta.json"), "w", encoding="utf-8") as f:
@@ -142,7 +153,7 @@ def listar_valores(propriedade, tabela=None, filtro=None):
     return [l[0] for l in linhas]
 
 
-def impressao_digital(grande_grupamento=None):
+def impressao_digital(grande_grupamento=None, uf=None):
     """Identifica a VERSÃO DOS DADOS servida pelo painel, a partir dos dados.
 
     Os metadados do pacote (`version`, `LastRefreshTime`) NÃO são confiáveis para
@@ -157,17 +168,13 @@ def impressao_digital(grande_grupamento=None):
     """
     selects = [query.coluna("t", "competência", "competencia")]
     selects += [query.medida("m", m) for m in ("Admitidos", "Desligados", "Saldo")]
-    where = (query.filtro_em("e", "Grande Grupamento", [grande_grupamento])
-             if grande_grupamento else None)
-    froms = [("t", config.TAB_TEMPO), ("m", config.TAB_MEDIDAS)]
-    if grande_grupamento:
-        froms.insert(0, ("e", config.TAB_ECONOMICO))
+    froms, where = froms_e_filtro(grande_grupamento, uf)
     _, linhas = dsr.decodificar(
         client.executar_consulta(query.montar(froms, selects, where=where, janela=5000)))
     totais = sorted((int(l[0]), [v or 0 for v in l[1:]]) for l in linhas)
     canonico = json.dumps(totais, ensure_ascii=False, sort_keys=True)
     return {
-        "escopo": grande_grupamento or "todos os setores",
+        "escopo": "%s / %s" % (grande_grupamento or "todos os setores", uf or "Brasil"),
         "competencias": len(totais),
         "primeira_competencia": totais[0][0] if totais else None,
         "ultima_competencia": totais[-1][0] if totais else None,
@@ -232,7 +239,7 @@ def digital_dos_dados(cabecalho, linhas, medidas):
             "sha256_dos_totais": hashlib.sha256(canonico.encode("utf-8")).hexdigest()}
 
 
-def conferir_replicas(grande_grupamento=None, amostras=4):
+def conferir_replicas(grande_grupamento=None, uf=None, amostras=4):
     """Detecta se o painel está servindo mais de uma versão da série agora.
 
     Foi observado o backend responder requisições consecutivas, do mesmo
@@ -242,12 +249,12 @@ def conferir_replicas(grande_grupamento=None, amostras=4):
 
     Devolve (estavel, lista_de_impressoes).
     """
-    vistas = [impressao_digital(grande_grupamento) for _ in range(amostras)]
+    vistas = [impressao_digital(grande_grupamento, uf) for _ in range(amostras)]
     shas = {v["sha256_dos_totais"] for v in vistas}
     return len(shas) == 1, vistas
 
 
-def carimbo_execucao(grande_grupamento=None, digital=None):
+def carimbo_execucao(grande_grupamento=None, uf=None, digital=None):
     """Metadados de proveniência do momento da coleta.
 
     `digital` deve ser a impressão digital tirada NO INÍCIO da extração. Passá-la
@@ -268,5 +275,5 @@ def carimbo_execucao(grande_grupamento=None, digital=None):
         "pacote_versao": pacote.get("version"),
         # Declarado pelo painel, mas NAO confiavel como versao dos dados.
         "ultimo_refresh_declarado": pacote.get("LastRefreshTime"),
-        "impressao_digital_dos_dados": digital or impressao_digital(grande_grupamento),
+        "impressao_digital_dos_dados": digital or impressao_digital(grande_grupamento, uf),
     }

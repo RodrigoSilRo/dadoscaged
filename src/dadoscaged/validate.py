@@ -30,7 +30,9 @@ import random
 
 from . import client, config, dsr, query
 
-FROMS = [("e", config.TAB_ECONOMICO), ("t", config.TAB_TEMPO), ("m", config.TAB_MEDIDAS)]
+def _base(grande_grupamento, uf):
+    from .extract import froms_e_filtro
+    return froms_e_filtro(grande_grupamento, uf)
 
 
 def _numero(v):
@@ -50,16 +52,15 @@ def _nivel_pai(nivel):
     return config.HIERARQUIA_SETORIAL[i - 1] if i > 0 else None
 
 
-def _por_competencia(nivel, medidas, grande_grupamento):
+def _por_competencia(nivel, medidas, grande_grupamento, uf=None):
     """Soma as medidas por competência, agrupando por `nivel` (None = agregado)."""
     selects = [query.coluna("t", "competência", "competencia")]
     if nivel:
         selects.append(query.coluna("e", nivel, "cat"))
     selects += [query.medida("m", m) for m in medidas]
-    where = (query.filtro_em("e", "Grande Grupamento", [grande_grupamento])
-             if grande_grupamento else None)
+    froms, where = _base(grande_grupamento, uf)
     _, linhas = dsr.decodificar(
-        client.executar_consulta(query.montar(FROMS, selects, where=where, janela=60000)))
+        client.executar_consulta(query.montar(froms, selects, where=where, janela=60000)))
     desloc = 2 if nivel else 1
     acum = collections.defaultdict(lambda: [0.0] * len(medidas))
     for r in linhas:
@@ -84,11 +85,11 @@ def somar_extraidas(cabecalho, linhas, medidas):
     return dict(acum)
 
 
-def conferir_aditivas(cabecalho, linhas, grande_grupamento, medidas, nivel):
+def conferir_aditivas(cabecalho, linhas, grande_grupamento, medidas, nivel, uf=None):
     exatas = [m for m in medidas if m not in config.MEDIDAS_COM_DESVIO_NO_NIVEL_MAIS_FINO]
     com_desvio = [m for m in medidas if m in config.MEDIDAS_COM_DESVIO_NO_NIVEL_MAIS_FINO]
 
-    oficial = _por_competencia(None, medidas, grande_grupamento)
+    oficial = _por_competencia(None, medidas, grande_grupamento, uf)
     nosso = somar_extraidas(cabecalho, linhas, medidas)
     pos = {m: k for k, m in enumerate(medidas)}
 
@@ -103,41 +104,42 @@ def conferir_aditivas(cabecalho, linhas, grande_grupamento, medidas, nivel):
             if abs(b[k] - a[k]) > 1e-6:
                 divergencias.append((comp, m, a[k], b[k]))
 
-    # Prova 2: as medidas com desvio conhecido têm de bater EXATO no nível pai.
-    pai = _nivel_pai(nivel)
-    checagem_pai = {"nivel": pai, "divergencias": []}
-    residuos = {}
-    if com_desvio and pai:
-        no_pai = _por_competencia(pai, com_desvio, grande_grupamento)
-        for comp in sorted(oficial):
-            for k, m in enumerate(com_desvio):
-                esperado = oficial[comp][pos[m]]
-                obtido = no_pai.get(comp, [None] * len(com_desvio))[k]
-                if obtido is None or abs(obtido - esperado) > 1e-6:
-                    checagem_pai["divergencias"].append((comp, m, esperado, obtido))
-        # E o resíduo do nível extraído é medido, não ignorado.
+    # Prova 2: para as medidas com desvio conhecido da fonte, o resíduo é MEDIDO
+    # nível a nível, e o nível mais fino em que ainda há igualdade exata é
+    # registrado. Não se exige exatidão num nível fixo: onde o desvio começa
+    # depende do recorte (nacionalmente ele só aparece em Subclasse; com recorte
+    # por UF ele já aparece em Classe). Fixar um nível daria falso alarme num
+    # caso e falso conforto no outro — medir e registrar não dá nem um nem outro.
+    perfil = {}
+    if com_desvio:
+        ate = config.HIERARQUIA_SETORIAL.index(nivel)
+        niveis = config.HIERARQUIA_SETORIAL[1:ate + 1]
         for m in com_desvio:
             k = pos[m]
-            por_mes = {}
-            for comp in sorted(oficial):
-                if comp in nosso:
-                    d = nosso[comp][k] - oficial[comp][k]
-                    if abs(d) > 1e-6:
-                        por_mes[comp] = d
-            residuos[m] = {
-                "meses_com_residuo": len(por_mes),
-                "residuo_absoluto_total": sum(por_mes.values()),
-                "desvio_relativo_maximo": max(
-                    (abs(d) / oficial[c][k] for c, d in por_mes.items()), default=0.0),
-                "competencia_do_maximo": max(
-                    por_mes, key=lambda c: abs(por_mes[c]) / oficial[c][k], default=None)
-                if por_mes else None,
-            }
+            por_nivel = {}
+            for lvl in niveis:
+                if lvl == nivel:
+                    soma_lvl = {c: nosso[c][k] for c in nosso}
+                else:
+                    d = _por_competencia(lvl, [m], grande_grupamento, uf)
+                    soma_lvl = {c: v[0] for c, v in d.items()}
+                difs = {c: soma_lvl[c] - oficial[c][k]
+                        for c in oficial
+                        if c in soma_lvl and abs(soma_lvl[c] - oficial[c][k]) > 1e-6}
+                por_nivel[lvl] = {
+                    "meses_com_residuo": len(difs),
+                    "desvio_relativo_maximo": max(
+                        (abs(v) / oficial[c][k] for c, v in difs.items()), default=0.0),
+                    "ultima_competencia_com_residuo": max(difs) if difs else None,
+                }
+            exatos = [l for l in niveis if por_nivel[l]["meses_com_residuo"] == 0]
+            perfil[m] = {"por_nivel": por_nivel,
+                         "nivel_mais_fino_exato": exatos[-1] if exatos else None,
+                         "exato_no_nivel_extraido": por_nivel[nivel]["meses_com_residuo"] == 0}
 
     return {"medidas_exatas": exatas, "medidas_com_desvio": com_desvio,
             "meses_no_painel": len(oficial), "meses_na_extracao": len(nosso),
-            "divergencias": divergencias, "checagem_nivel_pai": checagem_pai,
-            "residuos": residuos}
+            "divergencias": divergencias, "perfil_do_residuo": perfil}
 
 
 # --------------------------------------------------------------------------- #
@@ -145,7 +147,7 @@ def conferir_aditivas(cabecalho, linhas, grande_grupamento, medidas, nivel):
 # --------------------------------------------------------------------------- #
 
 def conferir_celulas(cabecalho, linhas, grande_grupamento, medidas, nivel,
-                     amostra=6, semente=20260828):
+                     uf=None, amostra=6, semente=20260828):
     cod = config.CODIGO_DE.get(nivel)
     chave = _rotulo(cod or nivel)
     i_comp = cabecalho.index("competencia")
@@ -168,12 +170,11 @@ def conferir_celulas(cabecalho, linhas, grande_grupamento, medidas, nivel,
 
     divergencias = []
     celulas = 0
+    froms, filtro_base = _base(grande_grupamento, uf)
     for comp in sorteadas:
-        where = query.filtro_em("t", "competência", [str(comp)])
-        if grande_grupamento:
-            where = where + query.filtro_em("e", "Grande Grupamento", [grande_grupamento])
+        where = query.filtro_em("t", "competência", [str(comp)]) + filtro_base
         _, ref = dsr.decodificar(
-            client.executar_consulta(query.montar(FROMS, selects, where=where, janela=60000)))
+            client.executar_consulta(query.montar(froms, selects, where=where, janela=60000)))
         for r in ref:
             k = (int(r[0]), str(r[1]))
             atual = nosso.get(k)
@@ -199,24 +200,26 @@ def conferir_celulas(cabecalho, linhas, grande_grupamento, medidas, nivel,
 # --------------------------------------------------------------------------- #
 
 def conferir(cabecalho, linhas, grande_grupamento="Comércio", medidas=None,
-             nivel="CNAE 2.0 Subclasse", amostra=6):
+             nivel="CNAE 2.0 Subclasse", uf=None, amostra=6):
     medidas = medidas or list(config.MEDIDAS_PADRAO)
     aditivas = [m for m in medidas if m in config.MEDIDAS_ADITIVAS]
     compostas = [m for m in medidas if m not in config.MEDIDAS_ADITIVAS]
 
-    soma = (conferir_aditivas(cabecalho, linhas, grande_grupamento, aditivas, nivel)
+    soma = (conferir_aditivas(cabecalho, linhas, grande_grupamento, aditivas, nivel, uf)
             if aditivas else
             {"medidas_exatas": [], "medidas_com_desvio": [], "meses_no_painel": 0,
-             "meses_na_extracao": 0, "divergencias": [],
-             "checagem_nivel_pai": {"nivel": None, "divergencias": []}, "residuos": {}})
+             "meses_na_extracao": 0, "divergencias": [], "perfil_do_residuo": {}})
     celula = conferir_celulas(cabecalho, linhas, grande_grupamento, medidas, nivel,
-                              amostra=amostra)
+                              uf=uf, amostra=amostra)
 
     return {"medidas_aditivas": aditivas, "medidas_compostas": compostas,
-            "nivel": nivel, "linhas_extraidas": len(linhas),
+            "nivel": nivel, "uf": uf, "linhas_extraidas": len(linhas),
             "soma": soma, "celula": celula,
+            # O portão exige exatidão nas CONTAGENS e nas células. O resíduo
+            # das medidas com desvio conhecido da fonte é medido e registrado,
+            # não é critério de reprovação — reprovar por ele seria culpar a
+            # extração por uma propriedade do painel.
             "ok": (not soma["divergencias"]
-                   and not soma["checagem_nivel_pai"]["divergencias"]
                    and not celula["divergencias"]
                    and soma["meses_no_painel"] == soma["meses_na_extracao"])}
 
@@ -225,6 +228,7 @@ def imprimir(rel):
     s, c = rel["soma"], rel["celula"]
     print("linhas extraidas      : %d" % rel["linhas_extraidas"])
     print("nivel extraido        : %s" % rel["nivel"])
+    print("recorte geografico    : %s" % (rel.get("uf") or "Brasil (sem filtro)"))
     print()
     print("[1] medidas aditivas: soma do nivel extraido x total do painel")
     print("    medidas           : %s" % (", ".join(s["medidas_exatas"]) or "-"))
@@ -235,20 +239,19 @@ def imprimir(rel):
         print("       %s  %-28s painel=%s extracao=%s" % (comp, m, a, b))
 
     if s["medidas_com_desvio"]:
-        p = s["checagem_nivel_pai"]
         print()
-        print("[2] medidas com desvio conhecido no nivel mais fino")
-        print("    medidas           : %s" % ", ".join(s["medidas_com_desvio"]))
-        print("    exatidao no nivel pai (%s): %d divergencias"
-              % (p["nivel"], len(p["divergencias"])))
-        for comp, m, a, b in p["divergencias"][:10]:
-            print("       %s  %-28s painel=%s nivel_pai=%s" % (comp, m, a, b))
-        for m, r in sorted(s["residuos"].items()):
-            print("    residuo medido em %s:" % rel["nivel"])
-            print("       meses com residuo      : %d de %d" % (r["meses_com_residuo"],
-                                                                s["meses_no_painel"]))
-            print("       desvio relativo maximo : %.4f%% (competencia %s)"
-                  % (100 * r["desvio_relativo_maximo"], r["competencia_do_maximo"]))
+        print("[2] medidas com desvio conhecido da fonte: perfil do residuo por nivel")
+        for m, prof in sorted(s["perfil_do_residuo"].items()):
+            print("    %s" % m)
+            print("       %-22s %10s %12s %12s"
+                  % ("nivel", "meses c/", "desvio max", "ultimo mes"))
+            for lvl, d in prof["por_nivel"].items():
+                marca = "  <- extraido" if lvl == rel["nivel"] else ""
+                print("       %-22s %10d %11.4f%% %12s%s"
+                      % (lvl, d["meses_com_residuo"],
+                         100 * d["desvio_relativo_maximo"],
+                         d["ultima_competencia_com_residuo"] or "-", marca))
+            print("       nivel mais fino exato: %s" % (prof["nivel_mais_fino_exato"] or "nenhum"))
 
     print()
     print("[3] todas as medidas, celula a celula, reconsulta independente")

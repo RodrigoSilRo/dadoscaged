@@ -100,7 +100,7 @@ Verificado empiricamente contra o painel, e determinante para como cada medida �
 | Medida | Comportamento | Verificação |
 |---|---|---|
 | `Admitidos`, `Desligados`, `Saldo` | aditivas | soma bate exato nas 79 competências |
-| `Estoque Mensal` | aditiva | exato até Classe; resíduo ≤0,167% em Subclasse nos anos iniciais |
+| `Estoque Mensal` | aditiva | exato até Classe (Brasil) ou Grupo (recorte por UF); resíduo ≤0,38% nos níveis abaixo, só nos anos iniciais |
 | `Tempo de Emprego (Desligados)` | média | não somável |
 | `Vr. Relativa` | razão | não somável; vale `saldo / (estoque − saldo)` em todas as linhas |
 
@@ -113,11 +113,13 @@ provas, porque aplicar a prova errada a uma medida dá falso conforto ou falso a
 do setor obtido em consulta separada, no nível agregado, sem passar por nenhum nível
 desagregado. Igualdade exata.
 
-**[2] Exatidão no nível pai, para medidas com desvio conhecido.** `Estoque Mensal` tem
-resíduo no nível mais fino que vem da fonte. Em vez de tolerá-lo em silêncio, a
-conferência **exige igualdade exata no nível pai** do extraído e **mede** o resíduo do
-nível extraído, mês a mês, registrando-o no manifesto. Se o desvio aparecesse também no
-nível pai, seria falha — é isso que separa "propriedade da fonte" de "erro da extração".
+**[2] Perfil do resíduo, para medidas com desvio conhecido da fonte.** `Estoque Mensal`
+não soma exato nos níveis mais finos, e **o nível em que isso começa depende do recorte**:
+nacionalmente é exato até Classe; com recorte por UF, só até Grupo. Em vez de exigir
+exatidão num nível fixo — o que daria falso alarme num caso e falso conforto no outro — a
+conferência **mede** o resíduo em cada nível da hierarquia até o extraído, registra o nível
+mais fino ainda exato, e grava o perfil no manifesto. O resíduo não reprova a extração:
+reprovar por ele seria culpar o pipeline por uma propriedade do painel.
 
 **[3] Célula a célula, com particionamento diferente.** Competências sorteadas (semente
 fixa) são reconsultadas **no mesmo nível de desagregação, particionando por competência

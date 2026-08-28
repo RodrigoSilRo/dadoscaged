@@ -1,0 +1,174 @@
+{
+ "coletado_em_utc": "2026-08-28T18:31:03+00:00",
+ "painel_url": "https://app.powerbi.com/view?r=eyJrIjoiNWI5NWI0ODEtYmZiYy00Mjg3LTkzNWUtY2UyYjIwMDE1YWI2IiwidCI6IjNlYzkyOTY5LTVhNTEtNGYxOC04YWM5LWVmOThmYmFmYTk3OCJ9",
+ "cluster": "https://wabi-brazil-south-d-primary-api.analysis.windows.net",
+ "model_id": 528307,
+ "dataset_id": "4859b5fd-e3ad-4a7c-95fe-aa62fc046d96",
+ "report_id": "534733",
+ "pacote_nome": "Painel Novo CAGED.pbix",
+ "pacote_versao": "ID-23435724",
+ "ultimo_refresh_declarado": "2026-08-28T17:32:52.753",
+ "impressao_digital_dos_dados": {
+  "escopo": "linhas extraidas",
+  "medidas": [
+   "Admitidos",
+   "Desligados",
+   "Saldo",
+   "Estoque Mensal"
+  ],
+  "competencias": 79,
+  "primeira_competencia": 202001,
+  "ultima_competencia": 202607,
+  "sha256_dos_totais": "97e44e54acb50fe466919a2a6ad6b54e9711ca26785a059426394bc14794af8f"
+ },
+ "fonte_servia_versao_unica_no_inicio": true,
+ "amostras_da_fonte_antes_da_coleta": [
+  {
+   "escopo": "Comércio / SC",
+   "competencias": 79,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "725c6c19e2b595388d04439b7d01c4ab74079be08240d0620ae8b8d15507ed1c"
+  },
+  {
+   "escopo": "Comércio / SC",
+   "competencias": 79,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "725c6c19e2b595388d04439b7d01c4ab74079be08240d0620ae8b8d15507ed1c"
+  },
+  {
+   "escopo": "Comércio / SC",
+   "competencias": 79,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "725c6c19e2b595388d04439b7d01c4ab74079be08240d0620ae8b8d15507ed1c"
+  },
+  {
+   "escopo": "Comércio / SC",
+   "competencias": 79,
+   "primeira_competencia": 202001,
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "725c6c19e2b595388d04439b7d01c4ab74079be08240d0620ae8b8d15507ed1c"
+  }
+ ],
+ "identidade_do_arquivo_coincide_com_amostra_inicial": false,
+ "mes_de_referencia_declarado_na_capa": 202607,
+ "ultima_competencia_no_arquivo": 202607,
+ "arquivo": "caged_comercio_sc_subclasse_mensal.csv",
+ "sha256": "0128f5ca656d06a92aa3863a3d064199917f725a56ae26ed5cb9e17260aa7d51",
+ "linhas": 17516,
+ "colunas": [
+  "competencia",
+  "ano",
+  "mes",
+  "cod_grande_grupamento",
+  "grande_grupamento",
+  "grupamento",
+  "cod_secao",
+  "secao",
+  "cod_divisao",
+  "divisao",
+  "cod_grupo",
+  "grupo",
+  "cod_classe",
+  "classe",
+  "cod_subclasse",
+  "subclasse",
+  "admitidos",
+  "desligados",
+  "saldo",
+  "tempo_de_emprego_desligados",
+  "estoque_mensal",
+  "vr_relativa"
+ ],
+ "setor": "Comércio",
+ "uf": "SC",
+ "nivel": "CNAE 2.0 Subclasse",
+ "medidas": [
+  "Admitidos",
+  "Desligados",
+  "Saldo",
+  "Tempo de Emprego (Desligados)",
+  "Estoque Mensal",
+  "Vr. Relativa"
+ ],
+ "anos": [
+  "2020",
+  "2021",
+  "2022",
+  "2023",
+  "2024",
+  "2025",
+  "2026"
+ ],
+ "validacao": {
+  "medidas_aditivas": [
+   "Admitidos",
+   "Desligados",
+   "Saldo",
+   "Estoque Mensal"
+  ],
+  "medidas_compostas": [
+   "Tempo de Emprego (Desligados)",
+   "Vr. Relativa"
+  ],
+  "soma_x_total": {
+   "meses_conferidos": 79,
+   "divergencias": 0
+  },
+  "perfil_do_residuo_da_fonte": {
+   "Estoque Mensal": {
+    "por_nivel": {
+     "Grupamento": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Seção": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Divisão": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Grupo": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Classe": {
+      "meses_com_residuo": 25,
+      "desvio_relativo_maximo": 0.0007873864531120969,
+      "ultima_competencia_com_residuo": 202312
+     },
+     "CNAE 2.0 Subclasse": {
+      "meses_com_residuo": 40,
+      "desvio_relativo_maximo": 0.003759290199919341,
+      "ultima_competencia_com_residuo": 202312
+     }
+    },
+    "nivel_mais_fino_exato": "CNAE 2.0 Grupo",
+    "exato_no_nivel_extraido": false
+   }
+  },
+  "celula_a_celula": {
+   "competencias": [
+    202203,
+    202212,
+    202307,
+    202311,
+    202411,
+    202602
+   ],
+   "celulas_conferidas": 7968,
+   "divergencias": 0
+  },
+  "ok": true
+ },
+ "gerado_por": "scripts/01_extrair.py",
+ "gerado_em_utc": "2026-08-28T18:31:04+00:00"
+}

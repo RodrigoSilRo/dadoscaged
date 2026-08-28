@@ -5,7 +5,7 @@ Roda de forma independente da extração: lê o arquivo do disco e consulta o
 painel de novo. Serve para (a) auditar um arquivo recebido de terceiros e
 (b) detectar que o órgão revisou a série desde a coleta.
 
-    python scripts/02_validar.py data/processed/caged_comercio_subclasse_mensal.csv
+    python scripts/02_validar.py data/processed/caged_comercio_br_subclasse_mensal.csv
 """
 import argparse
 import csv
@@ -26,12 +26,16 @@ def main():
 
     setor = args.setor
     nivel = "CNAE 2.0 Subclasse"
+    uf = None
     caminho_manifesto = os.path.splitext(args.csv)[0] + ".manifesto.json"
     if os.path.exists(caminho_manifesto):
         with open(caminho_manifesto, encoding="utf-8") as f:
             man = json.load(f)
         setor = setor or man.get("setor")
         nivel = man.get("nivel", nivel)
+        uf = man.get("uf")
+        if uf and not uf.isalpha():   # "Brasil (sem filtro geografico)"
+            uf = None
         dig = man.get("impressao_digital_dos_dados") or {}
         print("manifesto: coletado em %s" % man.get("coletado_em_utc"))
         print("           versao da fonte na coleta: %s competencias ate %s, sha256 %s"
@@ -51,9 +55,10 @@ def main():
     conhecidas = config.MEDIDAS_ADITIVAS + config.MEDIDAS_COMPOSTAS
     medidas = [m for m in conhecidas if extract._rotulo(m) in cabecalho]
     print("arquivo  : %s (%d linhas)" % (args.csv, len(linhas)))
-    print("nivel    : %s\n" % nivel)
+    print("nivel    : %s" % nivel)
+    print("uf       : %s\n" % (uf or "Brasil"))
     rel = validate.conferir(cabecalho, linhas, grande_grupamento=setor, medidas=medidas,
-                            nivel=nivel)
+                            nivel=nivel, uf=uf)
     validate.imprimir(rel)
     return 0 if rel["ok"] else 1
 

@@ -34,6 +34,8 @@ def main():
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--setor", default="Comércio",
                    help="valor de 'Grande Grupamento'; use 'todos' para não filtrar")
+    p.add_argument("--uf", default=None,
+                   help="sigla da UF para recorte geografico (ex.: SC); padrao: Brasil")
     p.add_argument("--nivel", default="CNAE 2.0 Subclasse",
                    choices=config.HIERARQUIA_SETORIAL,
                    help="nível de desagregação da saída")
@@ -47,24 +49,27 @@ def main():
     args = p.parse_args()
 
     setor = None if args.setor.lower() == "todos" else args.setor
+    uf = args.uf.upper() if args.uf else None
     medidas = args.medidas or list(config.MEDIDAS_PADRAO)
 
     os.makedirs(_caminho.DIR_PROC, exist_ok=True)
     saida = args.saida or os.path.join(
         _caminho.DIR_PROC,
-        "caged_%s_%s_mensal.csv" % (extract._rotulo(setor or "todos"),
-                                    extract._rotulo(args.nivel)))
+        "caged_%s_%s_%s_mensal.csv" % (extract._rotulo(setor or "todos"),
+                                       (uf or "BR").lower(),
+                                       extract._rotulo(args.nivel)))
 
     print("Fonte : %s" % config.PAINEL_URL)
     print("Setor : %s" % (setor or "todos"))
     print("Nivel : %s" % args.nivel)
+    print("UF    : %s" % (uf or "Brasil (sem filtro)"))
     # A extração emite uma consulta por ano. Se as respostas vierem de versões
     # diferentes da série, o arquivo sai internamente inconsistente — sem nada
     # que denuncie o problema depois. Isso não é hipotético: durante uma
     # atualização, o backend responde requisições consecutivas a partir de
     # réplicas em estados diferentes (ver docs/LIMITACOES.md, seção 2).
     print("\nVerificando se a fonte esta servindo uma unica versao...")
-    estavel, amostras = extract.conferir_replicas(setor)
+    estavel, amostras = extract.conferir_replicas(setor, uf)
     for a in amostras:
         print("   %s competencias ate %s, sha256 %s"
               % (a["competencias"], a["ultima_competencia"], a["sha256_dos_totais"][:16]))
@@ -92,7 +97,7 @@ def main():
 
     print("\nExtraindo...")
     cabecalho, linhas = extract.extrair(
-        nivel=args.nivel, grande_grupamento=setor, anos=args.anos, medidas=medidas,
+        nivel=args.nivel, grande_grupamento=setor, uf=uf, anos=args.anos, medidas=medidas,
         dir_raw=None if args.sem_raw else _caminho.DIR_RAW)
 
     # Identidade calculada sobre as proprias linhas: descreve o arquivo, nao o
@@ -112,7 +117,7 @@ def main():
     # versoes falha ali, porque os totais nao fecham.
     print("\nValidando contra os totais do painel...")
     rel = validate.conferir(cabecalho, linhas, grande_grupamento=setor, medidas=medidas,
-                            nivel=args.nivel)
+                            nivel=args.nivel, uf=uf)
     validate.imprimir(rel)
     if not rel["ok"]:
         print("\nExtracao NAO gravada: a conferencia contra o painel acusou divergencia.")
@@ -127,7 +132,7 @@ def main():
     # Manifesto de proveniência do arquivo gerado.
     # A identidade gravada é calculada sobre as linhas do arquivo, não por uma
     # consulta nova: assim ela descreve o que está no disco, sempre.
-    manifesto = extract.carimbo_execucao(setor, digital=digital_arquivo)
+    manifesto = extract.carimbo_execucao(setor, uf, digital=digital_arquivo)
     manifesto.update({
         "fonte_servia_versao_unica_no_inicio": estavel,
         "amostras_da_fonte_antes_da_coleta": amostras,
@@ -139,6 +144,7 @@ def main():
         "linhas": len(linhas),
         "colunas": cabecalho,
         "setor": setor or "todos",
+        "uf": uf or "Brasil (sem filtro geografico)",
         "nivel": args.nivel,
         "medidas": medidas,
         "anos": args.anos or extract.listar_anos(),
@@ -147,10 +153,7 @@ def main():
             "medidas_compostas": rel["medidas_compostas"],
             "soma_x_total": {"meses_conferidos": rel["soma"]["meses_no_painel"],
                              "divergencias": len(rel["soma"]["divergencias"])},
-            "nivel_pai": {
-                "nivel": rel["soma"]["checagem_nivel_pai"]["nivel"],
-                "divergencias": len(rel["soma"]["checagem_nivel_pai"]["divergencias"])},
-            "residuos_da_fonte": rel["soma"]["residuos"],
+            "perfil_do_residuo_da_fonte": rel["soma"]["perfil_do_residuo"],
             "celula_a_celula": {"competencias": rel["celula"]["competencias_sorteadas"],
                                 "celulas_conferidas": rel["celula"]["celulas_conferidas"],
                                 "divergencias": len(rel["celula"]["divergencias"])},

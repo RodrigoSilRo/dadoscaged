@@ -1,8 +1,13 @@
 # Dicionário de variáveis
 
-Referente a `data/processed/caged_comercio_subclasse_mensal.csv` e a qualquer saída de
-`scripts/01_extrair.py`. As colunas de hierarquia presentes variam com o `--nivel` pedido:
-o arquivo sempre traz o nível escolhido e todos os seus níveis pais.
+Referente aos arquivos em `data/processed/` e a qualquer saída de `scripts/01_extrair.py`.
+
+O nome do arquivo codifica o recorte: `caged_<setor>_<uf>_<nivel>_mensal.csv`. Há dois
+publicados — `caged_comercio_br_subclasse_mensal.csv` (Brasil) e
+`caged_comercio_sc_subclasse_mensal.csv` (Santa Catarina). As colunas de hierarquia
+presentes variam com o `--nivel` pedido: o arquivo sempre traz o nível escolhido e todos
+os seus níveis pais. O recorte geográfico não vira coluna — ele está no nome do arquivo e
+no campo `uf` do manifesto.
 
 **Formato:** CSV, separador `;`, codificação UTF-8 com BOM, sem aspas. Os decimais usam
 **ponto**, não vírgula — é o formato de intercâmbio que pandas, R e Stata leem sem
@@ -34,7 +39,7 @@ leia-os sempre como texto, sob risco de perder zeros à esquerda.
 | `cod_divisao` / `divisao` | Divisão CNAE 2.0 (2 dígitos) | 3 |
 | `cod_grupo` / `grupo` | Grupo CNAE 2.0 (3 dígitos) | 21 |
 | `cod_classe` / `classe` | Classe CNAE 2.0 (5 dígitos) | 94 |
-| `cod_subclasse` / `subclasse` | Subclasse CNAE 2.0 (7 dígitos) — menor nível disponível | 231 códigos / 230 nomes |
+| `cod_subclasse` / `subclasse` | Subclasse CNAE 2.0 (7 dígitos) — menor nível disponível | 231 no Brasil / 226 em SC |
 
 > **Use o código como chave, nunca o nome.** Sob Comércio há um nome de subclasse
 > associado a dois códigos distintos ("Comércio varejista especializado de equipamentos e
@@ -57,9 +62,10 @@ somado. O pipeline a usa para escolher como validar cada medida.
 Verificado na coleta atual: `saldo = admitidos − desligados` vale em **todas** as linhas,
 e a soma por competência reproduz exatamente o total do setor no painel.
 
-> `estoque_mensal` soma exato até o nível de **Classe**, mas tem pequeno excesso no nível
-> de **Subclasse** nos anos iniciais (máx. +0,167% em 2020-06; zero de 2023 em diante).
-> É resíduo da fonte. Ver [`LIMITACOES.md`](LIMITACOES.md), seção 9.
+> `estoque_mensal` é a única com resíduo da fonte nos níveis finos, e **até onde ele é
+> exato depende do recorte**: Classe no arquivo nacional, Grupo no de SC. O perfil medido
+> nível a nível está em `perfil_do_residuo_da_fonte`, no manifesto do seu arquivo. Ver
+> [`LIMITACOES.md`](LIMITACOES.md), seção 9.
 
 ### Compostas (médias e razões) — **não** somáveis
 
@@ -110,6 +116,7 @@ painel** — só nos microdados do FTP. Ver [`LIMITACOES.md`](LIMITACOES.md), se
 ## Linhas ausentes
 
 Uma combinação competência × subclasse sem movimentação nem estoque **não gera linha**.
-Para análises que exijam painel balanceado, construa a grade completa (79 competências ×
-231 subclasses = 18.249 células, contra 18.023 observadas) e preencha as ausências —
-conscientemente, e documentando a escolha: zero nas contagens, vazio nas compostas.
+Para análises que exijam painel balanceado, construa a grade completa e preencha as
+ausências — conscientemente, e documentando a escolha: zero nas contagens, vazio nas
+compostas. Brasil: 79 × 231 = 18.249 células, contra 18.023 observadas. SC: 79 × 226 =
+17.854, contra 17.516.

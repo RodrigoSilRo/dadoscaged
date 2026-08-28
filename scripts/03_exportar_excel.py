@@ -5,7 +5,7 @@ O CSV é o artefato canônico. Este passo é opcional e não altera nenhum núme
 acrescenta uma coluna `data` (primeiro dia da competência) e monta duas visões
 derivadas para inspeção rápida.
 
-    python scripts/03_exportar_excel.py data/processed/caged_comercio_subclasse_mensal.csv
+    python scripts/03_exportar_excel.py data/processed/caged_comercio_br_subclasse_mensal.csv
 """
 import argparse
 import os

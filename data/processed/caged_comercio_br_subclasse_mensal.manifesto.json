@@ -1,5 +1,5 @@
 {
- "coletado_em_utc": "2026-08-28T18:12:59+00:00",
+ "coletado_em_utc": "2026-08-28T18:33:03+00:00",
  "painel_url": "https://app.powerbi.com/view?r=eyJrIjoiNWI5NWI0ODEtYmZiYy00Mjg3LTkzNWUtY2UyYjIwMDE1YWI2IiwidCI6IjNlYzkyOTY5LTVhNTEtNGYxOC04YWM5LWVmOThmYmFmYTk3OCJ9",
  "cluster": "https://wabi-brazil-south-d-primary-api.analysis.windows.net",
  "model_id": 528307,
@@ -24,38 +24,38 @@
  "fonte_servia_versao_unica_no_inicio": true,
  "amostras_da_fonte_antes_da_coleta": [
   {
-   "escopo": "Comércio",
-   "competencias": 78,
+   "escopo": "Comércio / Brasil",
+   "competencias": 79,
    "primeira_competencia": 202001,
-   "ultima_competencia": 202606,
-   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "dc86fad20fb13b630ba3a93fa5090dfa9438d6b8b4074d43a67633c99220cc06"
   },
   {
-   "escopo": "Comércio",
-   "competencias": 78,
+   "escopo": "Comércio / Brasil",
+   "competencias": 79,
    "primeira_competencia": 202001,
-   "ultima_competencia": 202606,
-   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "dc86fad20fb13b630ba3a93fa5090dfa9438d6b8b4074d43a67633c99220cc06"
   },
   {
-   "escopo": "Comércio",
-   "competencias": 78,
+   "escopo": "Comércio / Brasil",
+   "competencias": 79,
    "primeira_competencia": 202001,
-   "ultima_competencia": 202606,
-   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "dc86fad20fb13b630ba3a93fa5090dfa9438d6b8b4074d43a67633c99220cc06"
   },
   {
-   "escopo": "Comércio",
-   "competencias": 78,
+   "escopo": "Comércio / Brasil",
+   "competencias": 79,
    "primeira_competencia": 202001,
-   "ultima_competencia": 202606,
-   "sha256_dos_totais": "0486faca3360cdb68aac9e87b0a76a0a1373f0b9c5256e406dc2fccad8f653b1"
+   "ultima_competencia": 202607,
+   "sha256_dos_totais": "dc86fad20fb13b630ba3a93fa5090dfa9438d6b8b4074d43a67633c99220cc06"
   }
  ],
  "identidade_do_arquivo_coincide_com_amostra_inicial": false,
  "mes_de_referencia_declarado_na_capa": 202607,
  "ultima_competencia_no_arquivo": 202607,
- "arquivo": "caged_comercio_subclasse_mensal.csv",
+ "arquivo": "caged_comercio_br_subclasse_mensal.csv",
  "sha256": "ff3714d8fe620deb5db381b0a42b12f3024c5e56e6dfe78ee52797288da286f5",
  "linhas": 18023,
  "colunas": [
@@ -83,6 +83,7 @@
   "vr_relativa"
  ],
  "setor": "Comércio",
+ "uf": "Brasil (sem filtro geografico)",
  "nivel": "CNAE 2.0 Subclasse",
  "medidas": [
   "Admitidos",
@@ -116,16 +117,42 @@
    "meses_conferidos": 79,
    "divergencias": 0
   },
-  "nivel_pai": {
-   "nivel": "CNAE 2.0 Classe",
-   "divergencias": 0
-  },
-  "residuos_da_fonte": {
+  "perfil_do_residuo_da_fonte": {
    "Estoque Mensal": {
-    "meses_com_residuo": 35,
-    "residuo_absoluto_total": 113066.0,
-    "desvio_relativo_maximo": 0.0016665576931301936,
-    "competencia_do_maximo": 202006
+    "por_nivel": {
+     "Grupamento": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Seção": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Divisão": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Grupo": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Classe": {
+      "meses_com_residuo": 0,
+      "desvio_relativo_maximo": 0.0,
+      "ultima_competencia_com_residuo": null
+     },
+     "CNAE 2.0 Subclasse": {
+      "meses_com_residuo": 35,
+      "desvio_relativo_maximo": 0.0016665576931301936,
+      "ultima_competencia_com_residuo": 202211
+     }
+    },
+    "nivel_mais_fino_exato": "CNAE 2.0 Classe",
+    "exato_no_nivel_extraido": false
    }
   },
   "celula_a_celula": {
@@ -143,5 +170,5 @@
   "ok": true
  },
  "gerado_por": "scripts/01_extrair.py",
- "gerado_em_utc": "2026-08-28T18:13:00+00:00"
+ "gerado_em_utc": "2026-08-28T18:33:03+00:00"
 }

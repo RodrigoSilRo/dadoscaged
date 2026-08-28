@@ -163,24 +163,33 @@ da ocupação, cruze com a dimensão ocupacional (CBO), disponível no modelo.
 Somá-las entre subclasses não produz o valor do agregado. Para reagregar, recalcule a
 partir das contagens. Ver [`DICIONARIO.md`](DICIONARIO.md).
 
-## 9. `Estoque Mensal` tem resíduo da fonte no nível de subclasse
+## 9. `Estoque Mensal` tem resíduo da fonte nos níveis mais finos
 
-Verificado nas 79 competências: `Estoque Mensal` soma **exatamente** igual ao agregado nos
-níveis de Divisão, Grupo e **Classe**. Só no nível de **Subclasse** a soma excede o
-agregado, e apenas nos anos iniciais:
+`Admitidos`, `Desligados` e `Saldo` somam **exatamente** igual ao agregado do painel em
+todas as competências, em qualquer recorte testado. `Estoque Mensal` não: nos níveis mais
+desagregados a soma excede o agregado por uma fração pequena, concentrada nos primeiros
+anos da série.
 
-| competência | desvio |
-|---|---|
-| 2020-06 | +0,167% (máximo) |
-| 2022-01 | +0,001% |
-| 2023-01 em diante | 0,000% (exato) |
+**O nível em que o desvio começa depende do recorte.** Medido nas 79 competências:
 
-O desvio se concentra em quatro classes CNAE e desaparece a partir de 2023 — período em
-que a atribuição de subclasse na base de estoque ainda estava em consolidação. **É desvio
-da fonte, não da extração**: a validação exige exatidão no nível pai e mede o resíduo do
-nível extraído, em vez de tolerá-lo em silêncio.
+| recorte | exato até | desvio em Classe | desvio em Subclasse | último mês com desvio |
+|---|---|---|---|---|
+| Comércio, Brasil | **Classe** | 0 | +0,167% (2020-06) | 2022-11 |
+| Comércio, SC | **Grupo** | +0,079% | +0,376% (2020-05) | 2023-12 |
 
-Se você precisa de estoque, use **Classe ou acima**, ou restrinja a 2023+.
+Quanto mais fino o corte — e cruzar setor com geografia é um corte mais fino — mais
+visível fica a lacuna de atribuição de subclasse na base de estoque, que o órgão foi
+consolidando ao longo do tempo. Em ambos os recortes o desvio **zera** nos anos finais.
+
+**É desvio da fonte, não da extração.** Por isso o pipeline não reprova por ele: mede o
+resíduo em **cada nível** da hierarquia, registra o nível mais fino em que ainda há
+igualdade exata, e grava o perfil completo no manifesto. Fixar um nível como "tem de ser
+exato" daria falso alarme num recorte e falso conforto em outro. O portão de reprovação
+são as contagens (exatas) e a conferência célula a célula.
+
+Se você precisa de estoque, consulte o campo `perfil_do_residuo_da_fonte` no manifesto do
+seu arquivo: ele diz até que nível o estoque é exato **naquele recorte**. Use esse nível,
+ou restrinja o período à parte em que o desvio é zero.
 
 ## 10. Ausência de linha ≠ zero
 
