@@ -176,10 +176,22 @@ anos da série.
 |---|---|---|---|---|
 | Comércio, Brasil | **Classe** | 0 | +0,167% (2020-06) | 2022-11 |
 | Comércio, SC | **Grupo** | +0,079% | +0,376% (2020-05) | 2023-12 |
+| Serviços, Brasil | **nenhum** (já em Grupamento) | +0,0013% | +0,0205% | 2025-07 |
+| Serviços, SC | **nenhum** (já em Grupamento) | +0,4357% | +0,5193% | 2025-11 |
 
 Quanto mais fino o corte — e cruzar setor com geografia é um corte mais fino — mais
 visível fica a lacuna de atribuição de subclasse na base de estoque, que o órgão foi
-consolidando ao longo do tempo. Em ambos os recortes o desvio **zera** nos anos finais.
+consolidando ao longo do tempo. Em ambos os recortes de Comércio o desvio **zera** nos
+anos finais.
+
+**Serviços é diferente em espécie, não só em grau.** Comércio corresponde a uma única
+seção CNAE (`G`), então `Grupamento`, `CNAE 2.0 Seção` e `CNAE 2.0 Divisão` têm cardinalidade
+1 e são triviamente exatos — o desvio só aparece a partir de onde há mais de uma categoria
+para somar. Serviços agrupa 14 seções (`H` a `U`), então já existe soma a fazer no nível
+`Grupamento`, e é lá que o desvio aparece pela primeira vez: nenhum nível da hierarquia é
+exato nas 79 competências, nem o mais agregado. O padrão de fundo é o mesmo — resíduo
+pequeno, concentrado nos meses mais antigos, medido e registrado por nível — mas em
+Serviços não existe um nível "seguro" para estoque sem checar o manifesto primeiro.
 
 **É desvio da fonte, não da extração.** Por isso o pipeline não reprova por ele: mede o
 resíduo em **cada nível** da hierarquia, registra o nível mais fino em que ainda há

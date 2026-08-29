@@ -144,17 +144,20 @@ intermitente, temporário, estrangeiro) — ver [`docs/MODELO.md`](docs/MODELO.m
 
 ## Saída atual
 
-Dois arquivos em `data/processed/`, ambos com o setor **Comércio** no menor nível
-disponível (**CNAE 2.0 Subclasse**), mês a mês, competências 2020-01 a 2026-07:
+Quatro arquivos em `data/processed/`, no menor nível disponível (**CNAE 2.0 Subclasse**),
+mês a mês, competências 2020-01 a 2026-07:
 
-| arquivo | recorte | linhas | subclasses |
-|---|---|---|---|
-| `caged_comercio_br_subclasse_mensal.csv` | Brasil | 18.023 | 231 |
-| `caged_comercio_sc_subclasse_mensal.csv` | Santa Catarina | 17.516 | 226 |
+| arquivo | setor | recorte | linhas | subclasses |
+|---|---|---|---|---|
+| `caged_comercio_br_subclasse_mensal.csv` | Comércio | Brasil | 18.023 | 231 |
+| `caged_comercio_sc_subclasse_mensal.csv` | Comércio | Santa Catarina | 17.516 | 226 |
+| `caged_servicos_br_subclasse_mensal.csv` | Serviços | Brasil | 35.564 | 460 |
+| `caged_servicos_sc_subclasse_mensal.csv` | Serviços | Santa Catarina | 31.813 | 425 |
 
 O nome codifica o recorte: `caged_<setor>_<uf>_<nivel>_mensal.csv`. O recorte geográfico
-**não vira coluna** — está no nome do arquivo e no campo `uf` do manifesto. Some os dois
-por engano e você conta SC duas vezes.
+**não vira coluna** — está no nome do arquivo e no campo `uf` do manifesto. Some Brasil com
+SC do mesmo setor por engano e você conta SC duas vezes; some Comércio com Serviços e você
+mistura dois setores diferentes numa única série.
 
 - hierarquia CNAE completa em colunas (código e nome de cada nível), de Grande Grupamento
   até Subclasse — permite reagregar para qualquer nível sem nova extração

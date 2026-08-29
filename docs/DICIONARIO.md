@@ -2,9 +2,11 @@
 
 Referente aos arquivos em `data/processed/` e a qualquer saída de `scripts/01_extrair.py`.
 
-O nome do arquivo codifica o recorte: `caged_<setor>_<uf>_<nivel>_mensal.csv`. Há dois
-publicados — `caged_comercio_br_subclasse_mensal.csv` (Brasil) e
-`caged_comercio_sc_subclasse_mensal.csv` (Santa Catarina). As colunas de hierarquia
+O nome do arquivo codifica o recorte: `caged_<setor>_<uf>_<nivel>_mensal.csv`. Há quatro
+publicados — Comércio (`caged_comercio_br_subclasse_mensal.csv`,
+`caged_comercio_sc_subclasse_mensal.csv`) e Serviços
+(`caged_servicos_br_subclasse_mensal.csv`, `caged_servicos_sc_subclasse_mensal.csv`),
+cada um em Brasil e Santa Catarina. As colunas de hierarquia
 presentes variam com o `--nivel` pedido: o arquivo sempre traz o nível escolhido e todos
 os seus níveis pais. O recorte geográfico não vira coluna — ele está no nome do arquivo e
 no campo `uf` do manifesto.
@@ -31,15 +33,15 @@ configuração. Para Excel em português, use o `.xlsx` gerado por
 Do mais agregado ao mais desagregado. Os códigos são **identificadores, não números** —
 leia-os sempre como texto, sob risco de perder zeros à esquerda.
 
-| Coluna | Descrição | Cardinalidade sob Comércio |
-|---|---|---|
-| `cod_grande_grupamento` / `grande_grupamento` | Agrupamento de divulgação do MTE: Agropecuária, Indústria, Construção, Comércio, Serviços, Não Identificado | 1 |
-| `grupamento` | Grupamento intermediário de divulgação (sem coluna de código no modelo) | 1 |
-| `cod_secao` / `secao` | Seção CNAE 2.0 (letra) — Comércio corresponde exatamente à seção `G` | 1 |
-| `cod_divisao` / `divisao` | Divisão CNAE 2.0 (2 dígitos) | 3 |
-| `cod_grupo` / `grupo` | Grupo CNAE 2.0 (3 dígitos) | 21 |
-| `cod_classe` / `classe` | Classe CNAE 2.0 (5 dígitos) | 94 |
-| `cod_subclasse` / `subclasse` | Subclasse CNAE 2.0 (7 dígitos) — menor nível disponível | 231 no Brasil / 226 em SC |
+| Coluna | Descrição | Cardinalidade sob Comércio | Cardinalidade sob Serviços |
+|---|---|---|---|
+| `cod_grande_grupamento` / `grande_grupamento` | Agrupamento de divulgação do MTE: Agropecuária, Indústria, Construção, Comércio, Serviços, Não Identificado | 1 | 1 |
+| `grupamento` | Grupamento intermediário de divulgação (sem coluna de código no modelo) | 1 | 1 |
+| `cod_secao` / `secao` | Seção CNAE 2.0 (letra) — Comércio corresponde exatamente à seção `G`; Serviços agrupa 14 seções (`H` a `U`) | 1 | 14 |
+| `cod_divisao` / `divisao` | Divisão CNAE 2.0 (2 dígitos) | 3 | 44 |
+| `cod_grupo` / `grupo` | Grupo CNAE 2.0 (3 dígitos) | 21 | 121 no Brasil / 116 em SC |
+| `cod_classe` / `classe` | Classe CNAE 2.0 (5 dígitos) | 94 | 231 no Brasil / 222 em SC |
+| `cod_subclasse` / `subclasse` | Subclasse CNAE 2.0 (7 dígitos) — menor nível disponível | 231 no Brasil / 226 em SC | 460 no Brasil / 425 em SC |
 
 > **Use o código como chave, nunca o nome.** Sob Comércio há um nome de subclasse
 > associado a dois códigos distintos ("Comércio varejista especializado de equipamentos e
@@ -118,5 +120,10 @@ painel** — só nos microdados do FTP. Ver [`LIMITACOES.md`](LIMITACOES.md), se
 Uma combinação competência × subclasse sem movimentação nem estoque **não gera linha**.
 Para análises que exijam painel balanceado, construa a grade completa e preencha as
 ausências — conscientemente, e documentando a escolha: zero nas contagens, vazio nas
-compostas. Brasil: 79 × 231 = 18.249 células, contra 18.023 observadas. SC: 79 × 226 =
+compostas.
+
+Comércio — Brasil: 79 × 231 = 18.249 células, contra 18.023 observadas. SC: 79 × 226 =
 17.854, contra 17.516.
+
+Serviços — Brasil: 79 × 460 = 36.340 células, contra 35.564 observadas. SC: 79 × 425 =
+33.575, contra 31.813.
