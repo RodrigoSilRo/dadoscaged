@@ -1,5 +1,5 @@
 {
- "coletado_em_utc": "2026-08-28T18:33:03+00:00",
+ "coletado_em_utc": "2026-08-30T22:14:20+00:00",
  "painel_url": "https://app.powerbi.com/view?r=eyJrIjoiNWI5NWI0ODEtYmZiYy00Mjg3LTkzNWUtY2UyYjIwMDE1YWI2IiwidCI6IjNlYzkyOTY5LTVhNTEtNGYxOC04YWM5LWVmOThmYmFmYTk3OCJ9",
  "cluster": "https://wabi-brazil-south-d-primary-api.analysis.windows.net",
  "model_id": 528307,
@@ -170,5 +170,5 @@
   "ok": true
  },
  "gerado_por": "scripts/01_extrair.py",
- "gerado_em_utc": "2026-08-28T18:33:03+00:00"
+ "gerado_em_utc": "2026-08-30T22:14:20+00:00"
 }
